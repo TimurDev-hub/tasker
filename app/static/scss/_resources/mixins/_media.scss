@@ -1,0 +1,24 @@
+@mixin mediaQuery($axis, $value) {
+	@media ($axis: $value) {
+		@content;
+	}
+}
+
+@mixin extendedMediaQuery($axis1, $value1, $axis2, $value2) {
+	@media ($axis1: $value1) and ($axis2: $value2) {
+		@content;
+	}
+}
+
+@mixin hoverEffect {
+	@media (hover: hover) {
+		&:hover {
+			@content;
+		}
+	}
+	@media (hover: none) {
+		&:active {
+			@content;
+		}
+	}
+}

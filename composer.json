@@ -1,0 +1,15 @@
+{
+	"name": "pet-project/task_tracker",
+	"description": "None",
+	"type": "project",
+	"license": "MIT",
+	"minimum-stability": "stable",
+	"require": {},
+
+	"autoload": {
+		"psr-4": {
+			"Models\\": "app/src/modules/models/",
+			"Controllers\\": "app/src/modules/controllers/"
+		}
+	}
+}

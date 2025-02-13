@@ -1,0 +1,24 @@
+@mixin objectSizeNormal($width, $height) {
+	width: calc(#{$width}vw + #{$width}vh);
+	height: calc(#{$height}vw + #{$height}vh);
+}
+
+@mixin objectSizeProportional($width, $height) {
+	width: calc(#{$width}vw + #{$width}vh);
+	aspect-ratio: $height;
+}
+
+@mixin objectSizePercentage($width, $height) {
+	width: $width * 1%;
+	height: $height * 1%;
+}
+
+@mixin objectSizePercentageWidth($width, $height) {
+	width: $width * 1%;
+	height: calc(#{$height}vw + #{$height}vh);
+}
+
+@mixin objectSizePercentageHeight($width, $height) {
+	width: calc(#{$width}vw + #{$width}vh);
+	height: $height * 1%;
+}

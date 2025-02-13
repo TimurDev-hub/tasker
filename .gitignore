@@ -1,0 +1,13 @@
+# ENVIRONMENT
+.env
+
+# NODE.JS DEPENDENCIES
+node_modules/
+package-lock.json
+
+# PHP DEPENDENCIES
+vendor/
+composer.lock
+
+# MAP-FILES
+*.map
