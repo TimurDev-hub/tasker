@@ -1,4 +1,23 @@
 @font-face {
-	font-family: '#';
-	src: url(#);
+    font-family: 'InterMedium';
+    src: url('../../../fonts/Inter18pt-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'InterRegular';
+    src: url('../../../fonts/Inter18pt-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'InterItalic';
+    src: url('../../../fonts/Inter18pt-Italic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
 }

@@ -4,22 +4,24 @@
 @use "../_resources/mixins/size" as size;
 @use "../_resources/tokens/variables" as var;
 @use "../_resources/tokens/colors" as color;
-@use "../_resources/utils/functions";
+@use "../_resources/utils/functions" as func;
 
 .header {
 	@include display.flexContainerBlock(row, nowrap, center, center);
-	@include size.objectSizeCalcHeight(100vw, 4);
-	background-color: color.$lightBlue;
-	padding-inline: calc(1vw + 1vh);
+	@include size.objectSizeExtended(100vw, 4, 'fixedWidth');
+	padding-inline: func.viewportSum(var.$containerPaddingNormal);
+	background-color: color.$darkBlue;
+	border-bottom: func.viewportSum(var.$borderSizeNormal) solid color.$grey;
 
 	&__container {
 		@include display.flexContainerBlock(row, nowrap, space-between, center);
 		@include size.objectSize(75%, 100%);
-		padding-inline: calc(1vw + 1vh);
+		padding-inline: func.viewportSum(var.$containerPaddingNormal);
 	}
 
 	&__logo {
-		@include font.fontConfig(1, 600);
+		@include font.fontConfigExtended('InterItalic', italic, var.$textSizeMedium, 600);
+		color: color.$white;
 	}
 
 	&__menu {
@@ -27,13 +29,46 @@
 		height: 100%;
 
 		&-item {
-			margin-inline: calc(1vw + 1vh);
-			padding: calc(.5vw + .5vh);
-			background-color: antiquewhite;
-		}
-	}
+			margin-inline: func.viewportSum(.6);
+			padding: func.viewportSum(.3) 0;
+			background-color: color.$white;
+			border: func.viewportSum(var.$borderSizeNormal) solid color.$lightGrey;
+			border-radius: func.viewportSum(var.$borderRadiusNormal);
+			transition-property: background-color;
+			transition-duration: var.$fastDuration;
+			cursor: pointer;
 
-	&__menu-link {
-		@include font.fontConfig(1, 600);
+			@include media.hoverEffect {
+				background-color: color.$darkWhite;
+			}
+
+			&--yellow {
+				background-color: color.$yellow;
+				border: func.viewportSum(var.$borderSizeNormal) solid transparent;
+				transition-property: background-color, border-color;
+				transition-duration: var.$fastDuration, var.$fastDuration;
+	
+				@include media.hoverEffect {
+					border-color: color.$yellow;
+					background-color: color.$black;
+				}
+			}
+		}
+
+		&-link {
+			@include font.fontConfigExtended('InterRegular', normal, var.$textSizeNormal, 500);
+			height: 100%;
+			padding: func.viewportSum(.3) func.viewportSum(.9);
+			color: color.$black;
+
+			&--yellow {
+				transition-property: color;
+				transition-duration: var.$fastDuration;
+
+				@include media.hoverEffect {
+					color: color.$yellow;
+				}
+			}
+		}
 	}
 }

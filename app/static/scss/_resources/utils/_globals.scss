@@ -4,3 +4,7 @@
 @use "../mixins/size" as size;
 @use "../tokens/variables" as var;
 @use "../tokens/colors" as color;
+
+body {
+	background-color: color.$mediumDarkBlue;
+}

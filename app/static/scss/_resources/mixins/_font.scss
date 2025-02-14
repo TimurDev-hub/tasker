@@ -3,10 +3,9 @@
 	font-weight: $font-weight;
 }
 
-@mixin fontRegular($font-size, $font-weight) {
-	font-family: '#', sans-serif;
-	font-style: '#';
-	color: '#';
+@mixin fontConfigExtended($font-family, $font-style, $font-size, $font-weight) {
+	font-family: $font-family, sans-serif;
+	font-style: $font-style;
 	font-size: calc(#{$font-size}vw + #{$font-size}vh);
 	font-weight: $font-weight;
 }

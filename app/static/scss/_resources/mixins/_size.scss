@@ -3,22 +3,24 @@
 	height: $height;
 }
 
-@mixin objectSizeProportional($width, $height) {
+@mixin objectSizeProportional($width, $aspectRatio) {
 	width: $width;
-	aspect-ratio: $height;
+	aspect-ratio: $aspectRatio;
 }
 
-@mixin objectSizeCalc($width, $height) {
+@mixin objectSizeFixed($width, $height) {
 	width: calc(#{$width}vw + #{$width}vh);
 	height: calc(#{$height}vw + #{$height}vh);
 }
 
-@mixin objectSizeCalcHeight($width, $height) {
-	width: $width;
-	height: calc(#{$height}vw + #{$height}vh);
-}
-
-@mixin objectSizeProportionalCalc($width, $height) {
-	width: calc(#{$width}vw + #{$width}vh);
-	aspect-ratio: $height;
+@mixin objectSizeExtended($width, $height, $flag) {
+	@if $flag == 'fixedWidth' {
+		width: $width;
+		height: calc(#{$height}vw + #{$height}vh);
+	} @else if $flag == 'fixedHeight' {
+		width: calc(#{$width}vw + #{$width}vh);;
+		height: $height;
+	} @else {
+		@error "Invalid flag value: #{$flag}.";
+	}
 }
