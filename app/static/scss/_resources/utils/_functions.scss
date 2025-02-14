@@ -1,0 +1,3 @@
+@function exc($value) {
+	@return calc(#{$value}vw + #{$value}vh);
+}

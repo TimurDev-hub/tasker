@@ -1,0 +1,59 @@
+@font-face {
+  font-family: "#";
+  src: url(#);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  border: none;
+  outline: none;
+  line-height: 1;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: calc(4vw + 4vh);
+  background-color: rgba(0, 200, 255, 0.7);
+  padding-inline: calc(1vw + 1vh);
+}
+.header__container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 75%;
+  height: 100%;
+  padding-inline: calc(1vw + 1vh);
+}
+.header__logo {
+  font-size: calc(1vw + 1vh);
+  font-weight: 600;
+}
+.header__menu {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.header__menu-item {
+  margin-inline: calc(1vw + 1vh);
+  padding: calc(0.5vw + 0.5vh);
+  background-color: antiquewhite;
+}
+.header__menu-link {
+  font-size: calc(1vw + 1vh);
+  font-weight: 600;
+}
+
+/*# sourceMappingURL=app.css.map */

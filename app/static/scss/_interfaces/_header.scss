@@ -1,0 +1,39 @@
+@use "../_resources/mixins/display" as display;
+@use "../_resources/mixins/font" as font;
+@use "../_resources/mixins/media" as media;
+@use "../_resources/mixins/size" as size;
+@use "../_resources/tokens/variables" as var;
+@use "../_resources/tokens/colors" as color;
+@use "../_resources/utils/functions";
+
+.header {
+	@include display.flexContainerBlock(row, nowrap, center, center);
+	@include size.objectSizeCalcHeight(100vw, 4);
+	background-color: color.$lightBlue;
+	padding-inline: calc(1vw + 1vh);
+
+	&__container {
+		@include display.flexContainerBlock(row, nowrap, space-between, center);
+		@include size.objectSize(75%, 100%);
+		padding-inline: calc(1vw + 1vh);
+	}
+
+	&__logo {
+		@include font.fontConfig(1, 600);
+	}
+
+	&__menu {
+		@include display.flexContainerInline(row, nowrap, center, center);
+		height: 100%;
+
+		&-item {
+			margin-inline: calc(1vw + 1vh);
+			padding: calc(.5vw + .5vh);
+			background-color: antiquewhite;
+		}
+	}
+
+	&__menu-link {
+		@include font.fontConfig(1, 600);
+	}
+}
