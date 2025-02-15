@@ -4,7 +4,8 @@
 @use "../mixins/size" as size;
 @use "../tokens/variables" as var;
 @use "../tokens/colors" as color;
+@use "../utils/functions" as func;
 
 body {
-	background-color: color.$mediumDarkBlue;
+	background-color: color.$mediumDarkGrey;
 }

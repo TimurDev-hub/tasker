@@ -1,0 +1,90 @@
+@use "../_resources/mixins/display" as display;
+@use "../_resources/mixins/font" as font;
+@use "../_resources/mixins/media" as media;
+@use "../_resources/mixins/size" as size;
+@use "../_resources/tokens/variables" as var;
+@use "../_resources/tokens/colors" as color;
+@use "../_resources/utils/functions" as func;
+
+.main {
+	@include display.flexContainerBlock(row, nowrap, center, center);
+	width: 100vw;
+
+	&__container {
+		@include display.flexContainerBlock(row, nowrap, space-between, flex-start);
+		@include size.objectSize(80%, fit-content);
+		padding-inline: func.viewportSum(var.$containerPaddingNormal);
+		padding-top: func.viewportSum(2);
+	}
+
+	&__inputs {
+		@include font.fontConfigExtended('InterRegular', normal, var.$textSizeLow, 400);
+		padding-inline: func.viewportSum(.5);
+		background-color: color.$white;
+		border-radius: func.viewportSum(var.$borderRadiusNormal);
+		border: func.viewportSum(var.$borderSizeNormal) solid color.$darkWhite;
+	}
+
+	&__sections {
+		@include display.flexContainerInline(column, nowrap, flex-start, center);
+		border-radius: func.viewportSum(var.$borderRadiusNormal);
+		background-color: color.$lightYellow;
+
+		&-header {
+			@include size.objectSize(100%, fit-content);
+			@include font.fontConfigExtended(monospace, normal, var.$textSizeMedium, 600);
+			display: block;
+			text-align: center;
+			margin-bottom: func.viewportSum(.5);
+			background-color: color.$blue;
+			border-radius: func.viewportSum(var.$borderRadiusNormal) func.viewportSum(var.$borderRadiusNormal) 0 0;
+			color: color.$white;
+		}
+
+		&-form {
+			@include display.flexContainerInline(column, nowrap, flex-start, center);
+			padding: func.viewportSum(.5) func.viewportSum(.7);
+		}
+
+		&-field {
+			@include display.flexContainerBlock(row, nowrap, space-between, flex-start);
+			width: 100%;
+			margin-bottom: func.viewportSum(.5);
+		}
+
+		&-title {
+			@include font.fontConfigExtended('InterRegular', normal, var.$textSizeNormal, 500);
+			margin-right: func.viewportSum(.5);
+			color: color.$black;
+		}
+
+		&-text {
+			@include size.objectSizeProportional(16vw, 7);
+			margin-right: 9vw;
+		}
+
+		&-task {
+			@include size.objectSizeProportional(25vw, 5);
+			padding-top: func.viewportSum(.25);
+			resize: none
+		}
+
+		&-submit {
+			@include size.objectSizeProportional(10vw, 4);
+			@include font.fontConfigExtended('InterRegular', normal, var.$textSizeButton, 500);
+			background-color: color.$green;
+			color: color.$white;
+			border-radius: func.viewportSum(var.$borderRadiusNormal);
+			border: func.viewportSum(var.$borderSizeNormal) solid transparent;
+			transition-property: background-color, border-color, color;
+			transition-duration: var.$fastDuration, var.$fastDuration, var.$fastDuration;
+
+			@include media.hoverEffect {
+				color: color.$green;
+				border-color: color.$green;
+				background-color: color.$white;
+				cursor: pointer;
+			}
+		}
+	}
+}

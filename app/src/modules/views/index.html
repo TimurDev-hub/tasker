@@ -13,13 +13,13 @@
 				<div class="header__logo-wrapper">
 					<a href="#" class="header__logo logo" target="_self">Tasker</a>
 				</div>
-				<nav class="header__menu-wrapper">
+				<nav class="header__nav">
 					<ul class="header__menu">
 						<li class="header__menu-item">
-							<a href="#" class="header__menu-link" target="_self">Войти</a>
+							<a href="#" class="header__menu-link" target="_self">Log in</a>
 						</li>
-						<li class="header__menu-item header__menu-item--yellow">
-							<a href="#" class="header__menu-link header__menu-link--yellow" target="_self">Регистрация</a>
+						<li class="header__menu-item">
+							<a href="#" class="header__menu-link header__menu-link--yellow" target="_self">Registration</a>
 						</li>
 					</ul>
 				</nav>
@@ -31,8 +31,21 @@
 			</div>
 		</header>
 		<main class="main">
-			<div class="container">
-				
+			<div class="main__container container">
+				<section class="main__sections">
+					<legend class="main__sections-header">Add new task</legend>
+					<form action="#" method="post" class="main__sections-form" enctype="text/plain">
+						<fieldset class="main__sections-field">
+							<label class="main__sections-title">Title</label>
+							<input type="text" class="main__sections-text main__inputs" placeholder="Your task`s title is..." maxlength="32" required>
+						</fieldset>
+						<fieldset class="main__sections-field">
+							<label class="main__sections-title">Task</label>
+							<textarea name="task" class="main__sections-task main__inputs" placeholder="Write what you want!" maxlength="128" required></textarea>
+						</fieldset>
+						<button type="submit" class="main__sections-submit button">Submit</button>
+					</form>
+				</section>
 			</div>
 		</main>
 		<footer class="footer">

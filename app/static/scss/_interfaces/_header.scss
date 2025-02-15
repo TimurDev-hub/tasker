@@ -9,9 +9,8 @@
 .header {
 	@include display.flexContainerBlock(row, nowrap, center, center);
 	@include size.objectSizeExtended(100vw, 4, 'fixedWidth');
-	padding-inline: func.viewportSum(var.$containerPaddingNormal);
-	background-color: color.$darkBlue;
-	border-bottom: func.viewportSum(var.$borderSizeNormal) solid color.$grey;
+	background-color: color.$darkGrey;
+	border-bottom: func.viewportSum(var.$borderSizeThin) solid color.$darkWhite;
 
 	&__container {
 		@include display.flexContainerBlock(row, nowrap, space-between, center);
@@ -22,28 +21,25 @@
 	&__logo {
 		@include font.fontConfigExtended('InterItalic', italic, var.$textSizeMedium, 600);
 		color: color.$white;
-		transition-property: color;
-		transition-duration: var.$fastDuration;
-
-		@include media.hoverEffect {
-			color: color.$blue;
-		}
 	}
 
 	&__menu {
 		@include display.flexContainerInline(row, nowrap, center, center);
 		height: 100%;
 
-		&-link {
-			@include display.flexContainerInline(row, nowrap, center, center);
-			@include font.fontConfigExtended('InterRegular', normal, var.$textSizeNormal, 500);
+		&-item {
 			margin-inline: func.viewportSum(.6);
+		}
+
+		&-link {
+			@include font.fontConfigExtended('InterRegular', normal, var.$textSizeNormal, 500);
+			display: inline-block;
 			padding: func.viewportSum(.3) func.viewportSum(.9);
 			background-color: color.$blue;
 			border: func.viewportSum(var.$borderSizeNormal) solid transparent;
 			border-radius: func.viewportSum(var.$borderRadiusNormal);
 			color: color.$white;
-			transition-property: background-color, border-color, color;
+			transition-property: color, border-color, background-color;
 			transition-duration: var.$fastDuration, var.$fastDuration, var.$fastDuration;
 
 			@include media.hoverEffect {
