@@ -10,7 +10,8 @@
 		"psr-4": {
 			"Models\\": "app/src/modules/models/",
 			"Controllers\\": "app/src/modules/controllers/",
-			"Database\\": "app/src/core/db",
+			"Router\\": "app/src/core/router/",
+			"Database\\": "app/src/core/db/",
 			"Shared\\": "app/src/shared/"
 		}
 	}

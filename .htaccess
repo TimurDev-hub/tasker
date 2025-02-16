@@ -1,5 +1,3 @@
-<FilesMatch ".(ttf|otf|eot|woff|woff2)$">
-  <IfModule mod_headers.c>
-    Header set Access-Control-Allow-Origin "*"
-  </IfModule>
-</FilesMatch>
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ app/public/index.php [L]
