@@ -9,14 +9,12 @@
 .sections {
 	@include display.flexContainerInline(column, nowrap, flex-start, center);
 	border-radius: func.viewportSum(var.$borderRadiusNormal);
-	background-color: color.$lightYellow;
 
 	&__header {
 		@include size.objectSize(100%, fit-content);
 		@include font.fontConfigExtended(monospace, normal, var.$textSizeMedium, 600);
 		display: block;
 		text-align: center;
-		margin-bottom: func.viewportSum(.5);
 		background-color: color.$blue;
 		border-radius: func.viewportSum(var.$borderRadiusNormal) func.viewportSum(var.$borderRadiusNormal) 0 0;
 		color: color.$white;
@@ -24,11 +22,14 @@
 
 	&__form {
 		@include display.flexContainerInline(column, nowrap, flex-start, center);
-		padding: func.viewportSum(.5) func.viewportSum(.7);
+		width: 100%;
+		padding: func.viewportSum(.7);
+		background: linear-gradient(to bottom right, color.$lightYellow, color.$pink);
+		border-radius: 0 0 func.viewportSum(var.$borderRadiusNormal) func.viewportSum(var.$borderRadiusNormal);
 	}
 
 	&__field {
-		@include display.flexContainerBlock(row, nowrap, space-between, flex-start);
+		@include display.flexContainerBlock(row, nowrap, center, flex-start);
 		width: 100%;
 		margin-bottom: func.viewportSum(.5);
 	}
@@ -42,17 +43,18 @@
 	&__text {
 		@include size.objectSizeProportional(16vw, 7);
 		margin-right: 9vw;
-	}
 
-	&__task {
-		@include size.objectSizeProportional(25vw, 5);
-		padding-top: func.viewportSum(.25);
-		resize: none
+		&--task {
+			@include size.objectSizeProportional(25vw, 5);
+			margin-right: 0;
+			padding-top: func.viewportSum(.25);
+			resize: none
+		}
 	}
 
 	&__submit {
-		@include size.objectSizeProportional(10vw, 4);
 		@include font.fontConfigExtended('InterRegular', normal, var.$textSizeButton, 500);
+		padding: func.viewportSum(.3) func.viewportSum(.9);
 		background-color: color.$green;
 		color: color.$white;
 		border-radius: func.viewportSum(var.$borderRadiusNormal);
@@ -65,6 +67,18 @@
 			border-color: color.$green;
 			background-color: color.$white;
 			cursor: pointer;
+		}
+
+		&--delete {
+			background-color: color.$red;
+			color: color.$black;
+			border-color: color.$red;
+
+			@include media.hoverEffect {
+				color: color.$red;
+				background-color: color.$black;
+				border-color: color.$red;
+			}
 		}
 	}
 }

@@ -12,6 +12,7 @@
 		<title>Tasker | Задачник</title>
 	</head>
 	<body>
+
 		<header class="header">
 			<div class="header__container container">
 				<div class="header__logo-wrapper">
@@ -34,6 +35,7 @@
 				</div>
 			</div>
 		</header>
+
 		<main class="main">
 			<div class="main__container container">
 				<section class="sections">
@@ -45,17 +47,33 @@
 						</fieldset>
 						<fieldset class="sections__field">
 							<label for="task" class="sections__title">Task</label>
-							<textarea id="task" name="task" class="sections__task main__inputs" placeholder="Write what you want!" maxlength="128" required></textarea>
+							<textarea id="task" name="task" class="sections__text sections__text--task main__inputs" placeholder="Write what you want!" maxlength="128" required></textarea>
 						</fieldset>
 						<button type="submit" class="sections__submit">Submit</button>
 					</form>
 				</section>
+				<section class="sections">
+					<legend class="sections__header">Tasks list</legend>
+					<form action="#" method="post" class="sections__form" enctype="text/plain">
+						<fieldset class="sections__field">
+							<label for="title" class="sections__title">Title</label>
+							<input id="title" name="title" type="text" class="sections__text main__inputs" required>
+						</fieldset>
+						<fieldset class="sections__field">
+							<label for="task" class="sections__title">Task</label>
+							<textarea id="task" name="task" class="sections__text sections__text--task main__inputs" required></textarea>
+						</fieldset>
+						<button type="submit" class="sections__submit sections__submit--delete">Submit</button>
+					</form>
+				</section>
 			</div>
 		</main>
+
 		<footer class="footer">
 			<div class="container">
 				
 			</div>
 		</footer>
+
 	</body>
 </html>

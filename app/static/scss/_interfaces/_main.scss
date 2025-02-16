@@ -21,7 +21,7 @@
 		@include font.fontConfigExtended('InterRegular', normal, var.$textSizeLow, 400);
 		padding-inline: func.viewportSum(.5);
 		background-color: color.$white;
-		border-radius: func.viewportSum(var.$borderRadiusNormal);
-		border: func.viewportSum(var.$borderSizeNormal) solid color.$darkWhite;
+		border-radius: func.viewportSum(var.$borderRadiusInputs);
+		border: func.viewportSum(var.$borderSizeInputs) solid color.$darkWhite;
 	}
 }

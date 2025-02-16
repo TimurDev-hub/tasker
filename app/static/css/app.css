@@ -30,10 +30,6 @@
   line-height: 1;
 }
 
-/* TIME */
-/* BORDER */
-/* PADDING */
-/* TEXT */
 body {
   background-color: rgb(20, 0, 60);
 }
@@ -47,7 +43,7 @@ body {
   width: 100vw;
   height: calc(4vw + 4vh);
   background-color: rgb(20, 0, 40);
-  border-bottom: calc(0.06vw + 0.06vh) solid rgb(175, 175, 175);
+  border-bottom: calc(0.05vw + 0.05vh) solid rgb(175, 175, 175);
 }
 .header__container {
   display: flex;
@@ -57,7 +53,7 @@ body {
   align-items: center;
   width: 80%;
   height: 100%;
-  padding-inline: calc(1vw + 1vh);
+  padding-inline: calc(1.2vw + 1.2vh);
 }
 .header__logo {
   font-family: "InterItalic", sans-serif;
@@ -85,8 +81,8 @@ body {
   display: inline-block;
   padding: calc(0.3vw + 0.3vh) calc(0.9vw + 0.9vh);
   background-color: rgb(55, 75, 255);
-  border: calc(0.12vw + 0.12vh) solid transparent;
-  border-radius: calc(0.2vw + 0.2vh);
+  border: calc(0.16vw + 0.16vh) solid transparent;
+  border-radius: calc(0.16vw + 0.16vh);
   color: rgb(255, 255, 255);
   transition-property: color, border-color, background-color;
   transition-duration: 200ms, 200ms, 200ms;
@@ -140,7 +136,7 @@ body {
   align-items: flex-start;
   width: 80%;
   height: fit-content;
-  padding-inline: calc(1vw + 1vh);
+  padding-inline: calc(1.2vw + 1.2vh);
   padding-top: calc(2vw + 2vh);
 }
 .main__inputs {
@@ -150,7 +146,7 @@ body {
   font-weight: 400;
   padding-inline: calc(0.5vw + 0.5vh);
   background-color: rgb(255, 255, 255);
-  border-radius: calc(0.2vw + 0.2vh);
+  border-radius: calc(0.12vw + 0.12vh);
   border: calc(0.12vw + 0.12vh) solid rgb(175, 175, 175);
 }
 
@@ -160,8 +156,7 @@ body {
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: center;
-  border-radius: calc(0.2vw + 0.2vh);
-  background-color: rgb(255, 255, 220);
+  border-radius: calc(0.16vw + 0.16vh);
 }
 .sections__header {
   width: 100%;
@@ -172,9 +167,8 @@ body {
   font-weight: 600;
   display: block;
   text-align: center;
-  margin-bottom: calc(0.5vw + 0.5vh);
   background-color: rgb(55, 75, 255);
-  border-radius: calc(0.2vw + 0.2vh) calc(0.2vw + 0.2vh) 0 0;
+  border-radius: calc(0.16vw + 0.16vh) calc(0.16vw + 0.16vh) 0 0;
   color: rgb(255, 255, 255);
 }
 .sections__form {
@@ -183,13 +177,16 @@ body {
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: center;
-  padding: calc(0.5vw + 0.5vh) calc(0.7vw + 0.7vh);
+  width: 100%;
+  padding: calc(0.7vw + 0.7vh);
+  background: linear-gradient(to bottom right, rgb(255, 255, 220), rgb(255, 170, 200));
+  border-radius: 0 0 calc(0.16vw + 0.16vh) calc(0.16vw + 0.16vh);
 }
 .sections__field {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
   width: 100%;
   margin-bottom: calc(0.5vw + 0.5vh);
@@ -207,23 +204,23 @@ body {
   aspect-ratio: 7;
   margin-right: 9vw;
 }
-.sections__task {
+.sections__text--task {
   width: 25vw;
   aspect-ratio: 5;
+  margin-right: 0;
   padding-top: calc(0.25vw + 0.25vh);
   resize: none;
 }
 .sections__submit {
-  width: 10vw;
-  aspect-ratio: 4;
   font-family: "InterRegular", sans-serif;
   font-style: normal;
   font-size: calc(1.2vw + 1.2vh);
   font-weight: 500;
+  padding: calc(0.3vw + 0.3vh) calc(0.9vw + 0.9vh);
   background-color: rgb(0, 235, 0);
   color: rgb(255, 255, 255);
-  border-radius: calc(0.2vw + 0.2vh);
-  border: calc(0.12vw + 0.12vh) solid transparent;
+  border-radius: calc(0.16vw + 0.16vh);
+  border: calc(0.16vw + 0.16vh) solid transparent;
   transition-property: background-color, border-color, color;
   transition-duration: 200ms, 200ms, 200ms;
 }
@@ -241,6 +238,25 @@ body {
     border-color: rgb(0, 235, 0);
     background-color: rgb(255, 255, 255);
     cursor: pointer;
+  }
+}
+.sections__submit--delete {
+  background-color: rgb(255, 10, 10);
+  color: rgb(0, 0, 0);
+  border-color: rgb(255, 10, 10);
+}
+@media (hover: hover) {
+  .sections__submit--delete:hover {
+    color: rgb(255, 10, 10);
+    background-color: rgb(0, 0, 0);
+    border-color: rgb(255, 10, 10);
+  }
+}
+@media (hover: none) {
+  .sections__submit--delete:active {
+    color: rgb(255, 10, 10);
+    background-color: rgb(0, 0, 0);
+    border-color: rgb(255, 10, 10);
   }
 }
 
