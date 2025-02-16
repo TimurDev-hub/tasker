@@ -1,0 +1,26 @@
+@use "../_resources/mixins/display" as display;
+@use "../_resources/mixins/font" as font;
+@use "../_resources/mixins/media" as media;
+@use "../_resources/tokens/variables" as var;
+@use "../_resources/tokens/colors" as color;
+@use "../_resources/utils/functions" as func;
+
+.footer {
+	@include display.flexContainerBlock(row, nowrap, center, center);
+	width: 100vw;
+	background-color: color.$darkGrey;
+	border-top: func.viewportSum(var.$borderSizeThin) solid color.$darkWhite;
+	position: absolute;
+	bottom: 0;
+
+	&__container {
+		@include display.flexContainerBlock(row, nowrap, space-between, center);
+	}
+
+	&__text {
+		@include font.fontConfigExtended(monospace, normal, var.$textSizeLow, 400);
+		display: inline-block;
+		padding: func.viewportSum(.8) 0;
+		color: color.$white;
+	}
+}

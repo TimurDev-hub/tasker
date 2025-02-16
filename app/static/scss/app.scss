@@ -4,12 +4,12 @@
 
 @use "./_resources/utils/globals";
 
+@use "./_resources/utils/container";
+
 @use "./_interfaces/header";
 
 @use "./_interfaces/main";
 
 @use "./_interfaces/sections";
-
-@use "./_interfaces/task";
 
 @use "./_interfaces/footer";

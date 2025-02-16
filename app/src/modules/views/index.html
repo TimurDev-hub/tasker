@@ -67,6 +67,17 @@
 							</fieldset>
 							<button type="submit" class="sections__submit sections__submit--delete">Delete</button>
 						</form>
+						<form action="#" method="post" class="sections__form sections__form--task" enctype="text/plain">
+							<fieldset class="sections__field">
+								<label class="sections__title">Title</label>
+								<input name="title" type="text" class="sections__text main__inputs" value="" disabled>
+							</fieldset>
+							<fieldset class="sections__field">
+								<label class="sections__title">Task</label>
+								<textarea name="task" class="sections__text sections__text--task main__inputs" disabled></textarea>
+							</fieldset>
+							<button type="submit" class="sections__submit sections__submit--delete">Delete</button>
+						</form>
 						<!--END-->
 					</div>
 				</section>
@@ -74,8 +85,9 @@
 		</main>
 
 		<footer class="footer">
-			<div class="container">
-				
+			<div class="footer__container container">
+				<span class="footer__icon"></span>
+				<p class="footer__text">Created by Timur &copy;</p>
 			</div>
 		</footer>
 

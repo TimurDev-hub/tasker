@@ -1,0 +1,10 @@
+@use "../mixins/display" as display;
+@use "../mixins/media" as media;
+@use "../mixins/size" as size;
+@use "../tokens/variables" as var;
+@use "./functions" as func;
+
+.container {
+	width: 80%;
+	padding-inline: func.viewportSum(var.$containerPaddingNormal);
+}

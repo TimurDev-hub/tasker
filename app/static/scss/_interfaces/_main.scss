@@ -12,8 +12,6 @@
 
 	&__container {
 		@include display.flexContainerBlock(row, nowrap, space-between, flex-start);
-		@include size.objectSize(80%, fit-content);
-		padding-inline: func.viewportSum(var.$containerPaddingNormal);
 		padding-top: func.viewportSum(2);
 	}
 
