@@ -6,7 +6,7 @@ use Throwable;
 
 class ErrorLogger
 {
-	private const LOCAL_LOG_FILE_PATH = '#';
+	private const LOCAL_LOG_FILE_PATH = '../../core/logs/errors.log';
 
 	private function getPrefix(): string
 	{
