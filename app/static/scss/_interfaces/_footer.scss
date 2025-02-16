@@ -1,6 +1,7 @@
 @use "../_resources/mixins/display" as display;
 @use "../_resources/mixins/font" as font;
 @use "../_resources/mixins/media" as media;
+@use "../_resources/mixins/size" as size;
 @use "../_resources/tokens/variables" as var;
 @use "../_resources/tokens/colors" as color;
 @use "../_resources/utils/functions" as func;
@@ -17,10 +18,27 @@
 		@include display.flexContainerBlock(row, nowrap, space-between, center);
 	}
 
+	&__icons-inner {
+		display: flex;
+	}
+
+	&__icon {
+		@include size.objectSizeFixed(2.8, 2.8);
+		display: inline-block;
+		background-image: url('/app/static/imgs/github.svg');
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+
+	&__icon:nth-child(2) {
+		margin-left: func.viewportSum(.4);
+		background-image: url('/app/static/imgs/twitter.svg');
+	}
+
 	&__text {
 		@include font.fontConfigExtended(monospace, normal, var.$textSizeLow, 400);
 		display: inline-block;
-		padding: func.viewportSum(.8) 0;
+		padding: func.viewportSum(1.2) 0;
 		color: color.$white;
 	}
 }
