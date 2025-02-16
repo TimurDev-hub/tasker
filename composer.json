@@ -9,7 +9,8 @@
 	"autoload": {
 		"psr-4": {
 			"Models\\": "app/src/modules/models/",
-			"Controllers\\": "app/src/modules/controllers/"
+			"Controllers\\": "app/src/modules/controllers/",
+			"Shared\\": "app/src/shared/"
 		}
 	}
 }

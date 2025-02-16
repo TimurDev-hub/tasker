@@ -7,7 +7,7 @@
 		<link rel="preload" href="/app/static/fonts/Inter18pt-Italic.woff2" as="font" type="font/woff2" crossorigin>
 		<link rel="preload" href="/app/static/fonts/Inter18pt-Medium.woff2" as="font" type="font/woff2" crossorigin>
 		<link rel="preload" href="/app/static/fonts/Inter18pt-Regular.woff2" as="font" type="font/woff2" crossorigin>
-		<link rel="image/x-icon" href="#">
+		<link rel="icon" type="image/x-icon" href="/app/static/imgs/favicon.ico">
 		<link rel="stylesheet" href="/app/static/css/app.css">
 		<title>Tasker | Задачник</title>
 	</head>
@@ -54,17 +54,21 @@
 				</section>
 				<section class="sections">
 					<legend class="sections__header">Tasks list</legend>
-					<form action="#" method="post" class="sections__form" enctype="text/plain">
-						<fieldset class="sections__field">
-							<label for="title" class="sections__title">Title</label>
-							<input id="title" name="title" type="text" class="sections__text main__inputs" required>
-						</fieldset>
-						<fieldset class="sections__field">
-							<label for="task" class="sections__title">Task</label>
-							<textarea id="task" name="task" class="sections__text sections__text--task main__inputs" required></textarea>
-						</fieldset>
-						<button type="submit" class="sections__submit sections__submit--delete">Submit</button>
-					</form>
+					<div class="sections__tasks-list">
+						<!--TASKS-->
+						<form action="#" method="post" class="sections__form sections__form--task" enctype="text/plain">
+							<fieldset class="sections__field">
+								<label class="sections__title">Title</label>
+								<input name="title" type="text" class="sections__text main__inputs" value="" disabled>
+							</fieldset>
+							<fieldset class="sections__field">
+								<label class="sections__title">Task</label>
+								<textarea name="task" class="sections__text sections__text--task main__inputs" disabled></textarea>
+							</fieldset>
+							<button type="submit" class="sections__submit sections__submit--delete">Delete</button>
+						</form>
+						<!--END-->
+					</div>
 				</section>
 			</div>
 		</main>

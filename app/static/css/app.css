@@ -171,6 +171,19 @@ body {
   border-radius: calc(0.16vw + 0.16vh) calc(0.16vw + 0.16vh) 0 0;
   color: rgb(255, 255, 255);
 }
+.sections__tasks-list {
+  display: inline-flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  aspect-ratio: 2.2;
+  padding: calc(0.35vw + 0.35vh);
+  background: linear-gradient(to bottom right, rgb(255, 255, 220), rgb(255, 170, 200));
+  border-radius: 0 0 calc(0.16vw + 0.16vh) calc(0.16vw + 0.16vh);
+  overflow-y: auto;
+}
 .sections__form {
   display: inline-flex;
   flex-direction: column;
@@ -181,6 +194,12 @@ body {
   padding: calc(0.7vw + 0.7vh);
   background: linear-gradient(to bottom right, rgb(255, 255, 220), rgb(255, 170, 200));
   border-radius: 0 0 calc(0.16vw + 0.16vh) calc(0.16vw + 0.16vh);
+}
+.sections__form--task {
+  margin: calc(0.35vw + 0.35vh) 0;
+  padding: calc(0.35vw + 0.35vh);
+  border-radius: calc(0.16vw + 0.16vh);
+  background: linear-gradient(to bottom right, rgb(255, 255, 0), rgb(175, 175, 175), rgb(0, 0, 0));
 }
 .sections__field {
   display: flex;

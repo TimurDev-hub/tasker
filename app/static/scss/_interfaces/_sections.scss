@@ -20,12 +20,28 @@
 		color: color.$white;
 	}
 
+	&__tasks-list {
+		@include display.flexContainerInline(column, nowrap, flex-start, center);
+		@include size.objectSizeProportional(100%, 2.2);
+		padding: func.viewportSum(.35);
+		background: linear-gradient(to bottom right, color.$lightYellow, color.$pink);
+		border-radius: 0 0 func.viewportSum(var.$borderRadiusNormal) func.viewportSum(var.$borderRadiusNormal);
+		overflow-y: auto;
+	}
+
 	&__form {
 		@include display.flexContainerInline(column, nowrap, flex-start, center);
 		width: 100%;
 		padding: func.viewportSum(.7);
 		background: linear-gradient(to bottom right, color.$lightYellow, color.$pink);
 		border-radius: 0 0 func.viewportSum(var.$borderRadiusNormal) func.viewportSum(var.$borderRadiusNormal);
+
+		&--task {
+			margin: func.viewportSum(.35) 0;
+			padding: func.viewportSum(.35);
+			border-radius: func.viewportSum(var.$borderRadiusNormal);
+			background: linear-gradient(to bottom right, color.$yellow, color.$darkWhite, color.$black);
+		}
 	}
 
 	&__field {
