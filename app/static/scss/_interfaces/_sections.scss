@@ -10,6 +10,10 @@
 	@include display.flexContainerInline(column, nowrap, flex-start, center);
 	border-radius: func.viewportSum(var.$borderRadiusNormal);
 
+	&--userforms {
+		margin-left: 10vw;
+	}
+
 	&__header {
 		@include size.objectSize(100%, fit-content);
 		@include font.fontConfigExtended(monospace, normal, var.$textSizeMedium, 600);
@@ -18,6 +22,10 @@
 		background-color: color.$blue;
 		border-radius: func.viewportSum(var.$borderRadiusNormal) func.viewportSum(var.$borderRadiusNormal) 0 0;
 		color: color.$white;
+
+		&--userforms {
+			padding-bottom: func.viewportSum(.3);
+		}
 	}
 
 	&__tasks-list {
@@ -27,6 +35,7 @@
 		background: linear-gradient(to bottom right, color.$lightYellow, color.$pink);
 		border-radius: 0 0 func.viewportSum(var.$borderRadiusNormal) func.viewportSum(var.$borderRadiusNormal);
 		overflow-y: auto;
+		scrollbar-width: thin;
 	}
 
 	&__form {
@@ -48,6 +57,10 @@
 		@include display.flexContainerBlock(row, nowrap, center, flex-start);
 		width: 100%;
 		margin-bottom: func.viewportSum(.5);
+
+		&--userforms {
+			justify-content: space-between;
+		}
 	}
 
 	&__title {
@@ -59,6 +72,11 @@
 	&__text {
 		@include size.objectSizeProportional(16vw, 7);
 		margin-right: 9vw;
+
+		&--userforms {
+			width: 21vw;
+			margin-right: 0;
+		}
 
 		&--task {
 			@include size.objectSizeProportional(25vw, 5);
