@@ -56,18 +56,20 @@
 					<legend class="sections__header">Tasks list</legend>
 					<div class="sections__tasks-list">
 						<!--TASKS-->
-						<form action="/home" method="post" class="sections__form sections__form--task" enctype="text/plain">
-							<fieldset class="sections__field">
-								<label class="sections__title">Title</label>
-								<input type="text" class="sections__text main__inputs" value="" disabled>
-							</fieldset>
-							<fieldset class="sections__field">
-								<label class="sections__title">Task</label>
-								<textarea class="sections__text sections__text--task main__inputs" disabled></textarea>
-							</fieldset>
-							<input name="id" type="text" value="#" disabled hidden>
-							<button type="submit" class="sections__submit sections__submit--delete">Delete</button>
-						</form>
+						<div class="sections__task">
+							<form action="/home" method="post" class="sections__form sections__form--task" enctype="text/plain">
+								<fieldset class="sections__field">
+									<label class="sections__title">Title</label>
+									<input type="text" class="sections__text main__inputs" value="" disabled>
+								</fieldset>
+								<fieldset class="sections__field">
+									<label class="sections__title">Task</label>
+									<textarea class="sections__text sections__text--task main__inputs" disabled></textarea>
+								</fieldset>
+								<input name="task_id" type="number" value="#" disabled hidden>
+								<button type="submit" class="sections__submit sections__submit--delete">Delete</button>
+							</form>
+						</div>
 						<!--END-->
 					</div>
 				</section>

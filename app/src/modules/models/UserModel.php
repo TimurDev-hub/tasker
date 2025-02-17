@@ -36,11 +36,11 @@ class UserModel
 	{
 		foreach ($this->userArray as $item) {
 			switch ($item) {
-				case 'username':
+				case 'user_name':
 					if (empty($item)) return false;
 					elseif (mb_strlen($item) < self::MIN_NAME_SIZE || mb_strlen($item) > self::MAX_NAME_SIZE) return false;
 					break;
-				case 'password':
+				case 'user_password':
 					if (empty($item)) return false;
 					elseif (mb_strlen($item) < self::MIN_PASS_SIZE || mb_strlen($item) > self::MAX_PASS_SIZE) return false;
 					break;
@@ -48,5 +48,49 @@ class UserModel
 		}
 
 		return true;
+	}
+
+	public function createAccount(): bool
+	{
+		if ($this->prepareData()) return false;
+		if ($this->validateData()) return false;
+
+		$hashedPassword = password_hash($this->userArray['user_password'], PASSWORD_DEFAULT);
+
+		try {
+			$stmt = $this->pdo->prepare("INSERT INTO users (user_name, user_password) VALUES (?, ?)");
+			return $stmt->execute([$this->userArray['user_name'], $hashedPassword]);
+
+		} catch (Throwable) {
+			return false;
+		}
+	}
+
+	public function deleteAccount(): bool
+	{
+		if (empty($this->userArray['user_id']) || !is_numeric($this->userArray['user_id'])) return false;
+
+		try {
+			$stmt = $this->pdo->prepare("DELETE FROM users WHERE user_id = ?");
+			return $stmt->execute([$this->userArray['user_id']]);
+
+		} catch (Throwable) {
+			return false;
+		}
+	}
+
+	public function checkAccount(): bool
+	{
+		if (!$this->prepareData()) return false;
+		if (!$this->validateData()) return false;
+
+		try {
+			$stmt = $this->pdo->prepare("SELECT 1 FROM users WHERE user_name = ? OR user_password = ? LIMIT 1");
+			$stmt->execute([$this->userArray['user_name'], $this->userArray['user_password']]);
+			return $stmt->fetchColumn() > 0;
+
+		} catch (Throwable) {
+			return false;
+		}
 	}
 }

@@ -54,11 +54,11 @@ class TaskModel
 
 	public function deleteTask(): bool
 	{
-		if (empty($this->taskData['id']) || !is_numeric($this->taskData['id'])) return false;
+		if (empty($this->taskData['task_id']) || !is_numeric($this->taskData['task_id'])) return false;
 
 		try {
 			$stmt = $this->pdo->prepare("DELETE FROM tasks WHERE task_id = ?");
-			return $stmt->execute([$this->taskData['id']]);
+			return $stmt->execute([$this->taskData['task_id']]);
 
 		} catch (Throwable) {
 			return false;
