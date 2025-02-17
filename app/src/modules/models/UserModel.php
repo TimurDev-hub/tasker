@@ -38,11 +38,11 @@ class UserModel
 			switch ($item) {
 				case 'user_name':
 					if (empty($item)) return false;
-					elseif (mb_strlen($item) < self::MIN_NAME_SIZE || mb_strlen($item) > self::MAX_NAME_SIZE) return false;
+					elseif (strlen($item) < self::MIN_NAME_SIZE || strlen($item) > self::MAX_NAME_SIZE) return false;
 					break;
 				case 'user_password':
 					if (empty($item)) return false;
-					elseif (mb_strlen($item) < self::MIN_PASS_SIZE || mb_strlen($item) > self::MAX_PASS_SIZE) return false;
+					elseif (strlen($item) < self::MIN_PASS_SIZE || strlen($item) > self::MAX_PASS_SIZE) return false;
 					break;
 			}
 		}
