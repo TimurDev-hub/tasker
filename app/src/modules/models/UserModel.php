@@ -60,7 +60,25 @@ class UserModel
 
 		} catch (Throwable $exc) {
 			ErrorLogger::handleError($exc);
-			return true;
+			return false;
+		}
+	}
+
+	public function getUserByName(): array|false
+	{
+		if (!$this->prepareData()) return false;
+
+		if (empty($this->userArray['user_name'])) return false;
+		if (strlen($this->userArray['user_name'] < self::MIN_NAME_SIZE || strlen($this->userArray['user_name']) > self::MAX_NAME_SIZE)) return false;
+
+		try {
+			$stmt = $this->pdo->prepare("SELECT * FROM users WHERE user_name = ?");
+			$stmt->execute([$this->userArray['user_name']]);
+			return $stmt->fetch(PDO::FETCH_ASSOC);
+
+		} catch (Throwable $exc) {
+			ErrorLogger::handleError($exc);
+			return false;
 		}
 	}
 

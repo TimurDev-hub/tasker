@@ -36,11 +36,11 @@ class TaskModel
 	{
 		foreach ($this->taskData as $key => $item) {
 			switch ($key) {
-				case 'title':
+				case 'task_title':
 					if (empty($item)) return false;
 					elseif (strlen($item) < self::MIN_STR_LEN || strlen($item) > self::MAX_TITLE_LEN) return false;
 					break;
-				case 'task':
+				case 'task_text':
 					if (empty($item)) return false;
 					elseif (strlen($item) < self::MIN_STR_LEN || strlen($item) > self::MAX_TASK_LEN) return false;
 					break;
@@ -57,7 +57,7 @@ class TaskModel
 
 		try {
 			$stmt = $this->pdo->prepare("INSERT INTO tasks (user_id, task_title, task_text) VALUES(?, ?, ?)");
-			return $stmt->execute([$this->taskData['user_id'], $this->taskData['title'], $this->taskData['task']]);
+			return $stmt->execute([$this->taskData['user_id'], $this->taskData['task_title'], $this->taskData['task_text']]);
 
 		} catch (Throwable $exc) {
 			ErrorLogger::handleError($exc);
