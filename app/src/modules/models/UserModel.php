@@ -51,10 +51,24 @@ class UserModel
 		return true;
 	}
 
+	private function checkAccount(): bool
+	{
+		try {
+			$stmt = $this->pdo->prepare("SELECT 1 FROM users WHERE user_name = ? LIMIT 1");
+			$stmt->execute([$this->userArray['user_name']]);
+			return $stmt->fetchColumn() > 0;
+
+		} catch (Throwable $exc) {
+			ErrorLogger::handleError($exc);
+			return true;
+		}
+	}
+
 	public function createAccount(): bool
 	{
-		if ($this->prepareData()) return false;
-		if ($this->validateData()) return false;
+		if (!$this->prepareData()) return false;
+		if (!$this->validateData()) return false;
+		if ($this->checkAccount()) return false;
 
 		$hashedPassword = password_hash($this->userArray['user_password'], PASSWORD_DEFAULT);
 
@@ -75,22 +89,6 @@ class UserModel
 		try {
 			$stmt = $this->pdo->prepare("DELETE FROM users WHERE user_id = ?");
 			return $stmt->execute([$this->userArray['user_id']]);
-
-		} catch (Throwable $exc) {
-			ErrorLogger::handleError($exc);
-			return false;
-		}
-	}
-
-	public function checkAccount(): bool
-	{
-		if (!$this->prepareData()) return false;
-		if (!$this->validateData()) return false;
-
-		try {
-			$stmt = $this->pdo->prepare("SELECT 1 FROM users WHERE user_name = ? OR user_password = ? LIMIT 1");
-			$stmt->execute([$this->userArray['user_name'], $this->userArray['user_password']]);
-			return $stmt->fetchColumn() > 0;
 
 		} catch (Throwable $exc) {
 			ErrorLogger::handleError($exc);

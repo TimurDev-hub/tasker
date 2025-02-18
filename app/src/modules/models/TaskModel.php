@@ -39,7 +39,7 @@ class TaskModel
 		return true;
 	}
 
-	public function enterTask(): bool
+	public function createTask(): bool
 	{
 		if (!$this->prepareData()) return false;
 		if (!$this->validateData()) return false;
@@ -54,7 +54,7 @@ class TaskModel
 		}
 	}
 
-	public function loadTask(): array|false
+	public function getTasks(): array|false
 	{
 		try {
 			$stmt = $this->pdo->prepare("SELECT * FROM tasks");
