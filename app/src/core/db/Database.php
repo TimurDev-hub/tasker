@@ -4,7 +4,7 @@ namespace Database;
 
 use PDO;
 use PDOException;
-use Shared\EnvParser;
+use Shared\{ErrorLogger, EnvParser};
 
 class Database
 {
@@ -27,7 +27,7 @@ class Database
 			$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 		} catch (PDOException $exc) {
-			throw new \Exception('Database connection failed: ' . $exc->getMessage());
+			ErrorLogger::handleError(exc: $exc);
 		}
 	}
 
