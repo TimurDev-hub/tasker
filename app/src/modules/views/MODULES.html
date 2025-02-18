@@ -33,11 +33,11 @@
 	<form action="/create" method="post" class="sections__form" enctype="text/plain">
 		<fieldset class="sections__field">
 			<label for="title" class="sections__title">Title</label>
-			<input id="title" name="title" type="text" class="sections__text main__inputs" placeholder="Your task`s title is..." maxlength="32" required>
+			<input id="title" name="task_title" type="text" class="sections__text main__inputs" placeholder="Your task`s title is..." maxlength="32" required>
 		</fieldset>
 		<fieldset class="sections__field">
 			<label for="task" class="sections__title">Task</label>
-			<textarea id="task" name="task" class="sections__text sections__text--task main__inputs" placeholder="Write what you want!" maxlength="128" required></textarea>
+			<textarea id="task" name="task_text" class="sections__text sections__text--task main__inputs" placeholder="Write what you want!" maxlength="128" required></textarea>
 		</fieldset>
 		<input name="user_id" type="number" value="#" disabled hidden>
 		<button type="submit" class="sections__submit">Submit</button>
