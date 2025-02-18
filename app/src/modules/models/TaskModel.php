@@ -45,7 +45,19 @@ class TaskModel
 
 		try {
 			$stmt = $this->pdo->prepare("INSERT INTO tasks (task_title, task_text) VALUES(?, ?)");
-			return $stmt->execute([$this->taskData['title'], $this->taskData['text']]);
+			return $stmt->execute([$this->taskData['user_id'], $this->taskData['title'], $this->taskData['text']]);
+
+		} catch (Throwable) {
+			return false;
+		}
+	}
+
+	public function loadTask(): array|false
+	{
+		try {
+			$stmt = $this->pdo->prepare("SELECT * FROM tasks");
+			$stmt->execute();
+			return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		} catch (Throwable) {
 			return false;

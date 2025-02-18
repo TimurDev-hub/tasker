@@ -7,10 +7,10 @@ use Throwable;
 
 class UserModel
 {
-	private const MIN_NAME_SIZE = 3;
-	private const MAX_NAME_SIZE = 9;
-	private const MIN_PASS_SIZE = 6;
-	private const MAX_PASS_SIZE = 12;
+	private const MIN_NAME_SIZE = 4;
+	private const MAX_NAME_SIZE = 16;
+	private const MIN_PASS_SIZE = 12;
+	private const MAX_PASS_SIZE = 24;
 
 	private PDO $pdo;
 	private array $userArray;
