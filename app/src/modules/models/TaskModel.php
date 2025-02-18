@@ -8,7 +8,10 @@ use Throwable;
 
 class TaskModel
 {
-	private const MIN_STR_LEN = 3;
+	private const MIN_STR_LEN = 4;
+	private const MAX_TITLE_LEN = 32;
+	private const MAX_TASK_LEN = 128;
+
 	private PDO $pdo;
 	private array $taskData;
 
@@ -31,9 +34,17 @@ class TaskModel
 
 	private function validateData(): bool
 	{
-		foreach ($this->taskData as $item) {
-			if (empty($item)) return false;
-			elseif (mb_strlen($item) <= self::MIN_STR_LEN) return false;
+		foreach ($this->taskData as $key => $item) {
+			switch ($key) {
+				case 'title':
+					if (empty($item)) return false;
+					elseif (strlen($item) < self::MIN_STR_LEN || strlen($item) > self::MAX_TITLE_LEN) return false;
+					break;
+				case 'task':
+					if (empty($item)) return false;
+					elseif (strlen($item) < self::MIN_STR_LEN || strlen($item) > self::MAX_TASK_LEN) return false;
+					break;
+			}
 		}
 
 		return true;
@@ -45,8 +56,8 @@ class TaskModel
 		if (!$this->validateData()) return false;
 
 		try {
-			$stmt = $this->pdo->prepare("INSERT INTO tasks (task_title, task_text) VALUES(?, ?)");
-			return $stmt->execute([$this->taskData['user_id'], $this->taskData['title'], $this->taskData['text']]);
+			$stmt = $this->pdo->prepare("INSERT INTO tasks (user_id, task_title, task_text) VALUES(?, ?, ?)");
+			return $stmt->execute([$this->taskData['user_id'], $this->taskData['title'], $this->taskData['task']]);
 
 		} catch (Throwable $exc) {
 			ErrorLogger::handleError($exc);
@@ -56,9 +67,13 @@ class TaskModel
 
 	public function getTasks(): array|false
 	{
+		if (!$this->prepareData()) return false;
+
+		if (empty($this->taskData['user_id']) || !is_numeric($this->taskData['user_id'])) return false;
+
 		try {
-			$stmt = $this->pdo->prepare("SELECT * FROM tasks");
-			$stmt->execute();
+			$stmt = $this->pdo->prepare("SELECT * FROM tasks WHERE user_id = ?");
+			$stmt->execute([$this->taskData['user_id']]);
 			return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		} catch (Throwable $exc) {
@@ -69,6 +84,8 @@ class TaskModel
 
 	public function deleteTask(): bool
 	{
+		if (!$this->prepareData()) return false;
+
 		if (empty($this->taskData['task_id']) || !is_numeric($this->taskData['task_id'])) return false;
 
 		try {

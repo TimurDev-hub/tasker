@@ -35,8 +35,8 @@ class UserModel
 
 	private function validateData(): bool
 	{
-		foreach ($this->userArray as $item) {
-			switch ($item) {
+		foreach ($this->userArray as $key => $item) {
+			switch ($key) {
 				case 'user_name':
 					if (empty($item)) return false;
 					elseif (strlen($item) < self::MIN_NAME_SIZE || strlen($item) > self::MAX_NAME_SIZE) return false;
@@ -84,6 +84,8 @@ class UserModel
 
 	public function deleteAccount(): bool
 	{
+		if (!$this->prepareData()) return false;
+
 		if (empty($this->userArray['user_id']) || !is_numeric($this->userArray['user_id'])) return false;
 
 		try {
