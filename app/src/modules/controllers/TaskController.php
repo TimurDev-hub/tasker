@@ -9,8 +9,22 @@ use Throwable;
 
 class TaskContoller
 {
+	private function checkData(array $requiredFields): bool
+	{
+		foreach ($requiredFields as $field) {
+			if (!isset($_POST[$field])) return false;
+		}
+
+		return true;
+	}
+
 	public function createTask(): string
 	{
+		if (!$this->checkData(['user_id', 'task_title', 'task_text'])) {
+			http_response_code(400);
+			return json_encode(['Missing required fields']);
+		}
+
 		try {
 			$db = new Database();
 			$pdo = $db->returnPdo();
@@ -34,6 +48,11 @@ class TaskContoller
 
 	public function loadTasks(): string
 	{
+		if (!$this->checkData(['user_id'])) {
+			http_response_code(400);
+			return json_encode(['Missing required fields']);
+		}
+
 		try {
 			$db = new Database();
 			$pdo = $db->returnPdo();
@@ -56,6 +75,11 @@ class TaskContoller
 
 	public function deleteTask(): string
 	{
+		if (!$this->checkData(['task_id'])) {
+			http_response_code(400);
+			return json_encode(['Missing required fields']);
+		}
+
 		try {
 			$db = new Database();
 			$pdo = $db->returnPdo();
