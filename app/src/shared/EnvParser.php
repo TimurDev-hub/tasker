@@ -23,11 +23,11 @@ class EnvParser
 		$fileData = [];
 
 		try {
-			foreach ($this->loadFile() as $item) {
-				$dataString = explode('=', $item, 2);
+			foreach ($this->loadFile() as $line) {
+				$linesArray = explode('=', $line, 2);
 	
-				$key = $dataString[0];
-				$value = $dataString[1];
+				$key = $linesArray[0];
+				$value = $linesArray[1];
 	
 				$fileData[$key] = $value;
 			}
