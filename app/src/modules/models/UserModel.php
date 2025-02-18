@@ -3,6 +3,7 @@
 namespace Models;
 
 use PDO;
+use Shared\ErrorLogger;
 use Throwable;
 
 class UserModel
@@ -61,7 +62,8 @@ class UserModel
 			$stmt = $this->pdo->prepare("INSERT INTO users (user_name, user_password) VALUES (?, ?)");
 			return $stmt->execute([$this->userArray['user_name'], $hashedPassword]);
 
-		} catch (Throwable) {
+		} catch (Throwable $exc) {
+			ErrorLogger::handleError($exc);
 			return false;
 		}
 	}
@@ -74,7 +76,8 @@ class UserModel
 			$stmt = $this->pdo->prepare("DELETE FROM users WHERE user_id = ?");
 			return $stmt->execute([$this->userArray['user_id']]);
 
-		} catch (Throwable) {
+		} catch (Throwable $exc) {
+			ErrorLogger::handleError($exc);
 			return false;
 		}
 	}
@@ -89,7 +92,8 @@ class UserModel
 			$stmt->execute([$this->userArray['user_name'], $this->userArray['user_password']]);
 			return $stmt->fetchColumn() > 0;
 
-		} catch (Throwable) {
+		} catch (Throwable $exc) {
+			ErrorLogger::handleError($exc);
 			return false;
 		}
 	}

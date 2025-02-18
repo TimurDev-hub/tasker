@@ -3,6 +3,7 @@
 namespace Models;
 
 use PDO;
+use Shared\ErrorLogger;
 use Throwable;
 
 class TaskModel
@@ -47,7 +48,8 @@ class TaskModel
 			$stmt = $this->pdo->prepare("INSERT INTO tasks (task_title, task_text) VALUES(?, ?)");
 			return $stmt->execute([$this->taskData['user_id'], $this->taskData['title'], $this->taskData['text']]);
 
-		} catch (Throwable) {
+		} catch (Throwable $exc) {
+			ErrorLogger::handleError($exc);
 			return false;
 		}
 	}
@@ -59,7 +61,8 @@ class TaskModel
 			$stmt->execute();
 			return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-		} catch (Throwable) {
+		} catch (Throwable $exc) {
+			ErrorLogger::handleError($exc);
 			return false;
 		}
 	}
@@ -72,7 +75,8 @@ class TaskModel
 			$stmt = $this->pdo->prepare("DELETE FROM tasks WHERE task_id = ?");
 			return $stmt->execute([$this->taskData['task_id']]);
 
-		} catch (Throwable) {
+		} catch (Throwable $exc) {
+			ErrorLogger::handleError($exc);
 			return false;
 		}
 	}
