@@ -2,8 +2,6 @@
 
 namespace Utils;
 
-use Throwable;
-
 class EnvParser
 {
 	private string $filePath;
@@ -26,13 +24,13 @@ class EnvParser
 			foreach ($this->loadFile() as $line) {
 				$linesArray = explode('=', $line, 2);
 	
-				$key = $linesArray[0];
-				$value = $linesArray[1];
+				$key = trim($linesArray[0]);
+				$value = trim($linesArray[1]);
 	
 				$fileData[$key] = $value;
 			}
 
-		} catch (Throwable) {
+		} catch (\Throwable) {
 			return false;
 		}
 
