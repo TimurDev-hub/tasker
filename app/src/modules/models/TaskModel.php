@@ -44,6 +44,10 @@ class TaskModel
 					if (empty($item)) return false;
 					elseif (strlen($item) < self::MIN_STR_LEN || strlen($item) > self::MAX_TASK_LEN) return false;
 					break;
+				case 'user_id':
+				case 'task_id':
+					if (empty($item)) return false;
+					elseif (!is_numeric($item)) return false;
 			}
 		}
 
@@ -68,8 +72,7 @@ class TaskModel
 	public function getTasks(): array|false
 	{
 		if (!$this->prepareData()) return false;
-
-		if (empty($this->taskData['user_id']) || !is_numeric($this->taskData['user_id'])) return false;
+		if (!$this->validateData()) return false;
 
 		try {
 			$stmt = $this->pdo->prepare("SELECT * FROM tasks WHERE user_id = ?");
@@ -85,8 +88,7 @@ class TaskModel
 	public function deleteTask(): bool
 	{
 		if (!$this->prepareData()) return false;
-
-		if (empty($this->taskData['task_id']) || !is_numeric($this->taskData['task_id'])) return false;
+		if (!$this->validateData()) return false;
 
 		try {
 			$stmt = $this->pdo->prepare("DELETE FROM tasks WHERE task_id = ?");

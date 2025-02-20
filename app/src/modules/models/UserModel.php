@@ -37,6 +37,10 @@ class UserModel
 	{
 		foreach ($this->userArray as $key => $item) {
 			switch ($key) {
+				case 'user_id':
+					if (empty($item)) return false;
+					elseif (!is_numeric($item)) return false;
+					break;
 				case 'user_name':
 					if (empty($item)) return false;
 					elseif (strlen($item) < self::MIN_NAME_SIZE || strlen($item) > self::MAX_NAME_SIZE) return false;
@@ -60,16 +64,14 @@ class UserModel
 
 		} catch (Throwable $exc) {
 			ErrorLogger::handleError($exc);
-			return false;
+			return true;
 		}
 	}
 
 	public function getUserByName(): array|false
 	{
 		if (!$this->prepareData()) return false;
-
-		if (empty($this->userArray['user_name'])) return false;
-		if (strlen($this->userArray['user_name'] < self::MIN_NAME_SIZE || strlen($this->userArray['user_name']) > self::MAX_NAME_SIZE)) return false;
+		if (!$this->validateData()) return false;
 
 		try {
 			$stmt = $this->pdo->prepare("SELECT * FROM users WHERE user_name = ?");
@@ -103,8 +105,7 @@ class UserModel
 	public function deleteAccount(): bool
 	{
 		if (!$this->prepareData()) return false;
-
-		if (empty($this->userArray['user_id']) || !is_numeric($this->userArray['user_id'])) return false;
+		if (!$this->validateData()) return false;
 
 		try {
 			$stmt = $this->pdo->prepare("DELETE FROM users WHERE user_id = ?");
