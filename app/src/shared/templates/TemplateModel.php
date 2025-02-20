@@ -4,12 +4,15 @@ namespace Templates;
 
 class TemplateModel
 {
-	private const MIN_STR_LEN = 4;
+	private const MIN_TITLE_LEN = 4;
 	private const MAX_TITLE_LEN = 32;
+
+	private const MIN_TASK_LEN = 8;
 	private const MAX_TASK_LEN = 128;
 
 	private const MIN_NAME_SIZE = 4;
 	private const MAX_NAME_SIZE = 16;
+
 	private const MIN_PASS_SIZE = 12;
 	private const MAX_PASS_SIZE = 24;
 
@@ -35,11 +38,11 @@ class TemplateModel
 					break;
 				case 'task_title':
 					if (empty($item)) return false;
-					elseif (strlen($item) < self::MIN_STR_LEN || strlen($item) > self::MAX_TITLE_LEN) return false;
+					elseif (strlen($item) < self::MIN_TITLE_LEN || strlen($item) > self::MAX_TITLE_LEN) return false;
 					break;
 				case 'task_text':
 					if (empty($item)) return false;
-					elseif (strlen($item) < self::MIN_STR_LEN || strlen($item) > self::MAX_TASK_LEN) return false;
+					elseif (strlen($item) < self::MIN_TASK_LEN || strlen($item) > self::MAX_TASK_LEN) return false;
 					break;
 				case 'user_name':
 					if (empty($item)) return false;
