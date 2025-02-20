@@ -2,13 +2,11 @@
 
 namespace Database;
 
-use PDO;
-use PDOException;
-use Shared\{ErrorLogger, EnvParser};
+use Utils\{ErrorLogger, EnvParser};
 
 class Database
 {
-	private PDO $pdo;
+	private \PDO $pdo;
 
 	public function __construct()
 	{
@@ -23,15 +21,15 @@ class Database
 		$dbPassword = $envFile['DB_PASSWORD'];
 
 		try {
-			$this->pdo = new PDO("pgsql:host={$dbHost};dbname={$dbName};user={$dbUser};password={$dbPassword};");
-			$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$this->pdo = new \PDO("pgsql:host={$dbHost};dbname={$dbName};user={$dbUser};password={$dbPassword};");
+			$this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
-		} catch (PDOException $exc) {
+		} catch (\PDOException $exc) {
 			ErrorLogger::handleError(exc: $exc);
 		}
 	}
 
-	public function returnPdo(): PDO
+	public function returnPdo(): \PDO
 	{
 		return $this->pdo;
 	}
