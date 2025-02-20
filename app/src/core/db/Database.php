@@ -20,8 +20,10 @@ class Database
 		$dbUser = $envFile['DB_USER'];
 		$dbPassword = $envFile['DB_PASSWORD'];
 
+		$dsn = "pgsql:host={$dbHost};dbname={$dbName};user={$dbUser};password={$dbPassword};";
+
 		try {
-			$this->pdo = new \PDO("pgsql:host={$dbHost};dbname={$dbName};user={$dbUser};password={$dbPassword};");
+			$this->pdo = new \PDO($dsn);
 			$this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
 		} catch (\PDOException $exc) {
