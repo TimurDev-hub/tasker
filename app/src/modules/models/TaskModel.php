@@ -2,14 +2,11 @@
 
 namespace Models;
 
-use Shared\ErrorLogger;
+use Templates\TemplateModel;
+use Utils\ErrorLogger;
 
-class TaskModel
+class TaskModel extends TemplateModel
 {
-	private const MIN_STR_LEN = 4;
-	private const MAX_TITLE_LEN = 32;
-	private const MAX_TASK_LEN = 128;
-
 	private \PDO $pdo;
 	private array $taskData;
 
@@ -19,43 +16,10 @@ class TaskModel
 		$this->taskData = $taskData;
 	}
 
-	private function prepareData(): bool
-	{
-		if (empty($this->taskData)) return false;
-
-		foreach ($this->taskData as &$item) {
-			$item = strval(htmlspecialchars(trim($item)));
-		}
-
-		return true;
-	}
-
-	private function validateData(): bool
-	{
-		foreach ($this->taskData as $key => $item) {
-			switch ($key) {
-				case 'task_title':
-					if (empty($item)) return false;
-					elseif (strlen($item) < self::MIN_STR_LEN || strlen($item) > self::MAX_TITLE_LEN) return false;
-					break;
-				case 'task_text':
-					if (empty($item)) return false;
-					elseif (strlen($item) < self::MIN_STR_LEN || strlen($item) > self::MAX_TASK_LEN) return false;
-					break;
-				case 'user_id':
-				case 'task_id':
-					if (empty($item)) return false;
-					elseif (!is_numeric($item)) return false;
-			}
-		}
-
-		return true;
-	}
-
 	public function createTask(): bool
 	{
-		if (!$this->prepareData()) return false;
-		if (!$this->validateData()) return false;
+		if (!$this->prepareData(data: $this->taskData)) return false;
+		if (!$this->validateData(data: $this->taskData)) return false;
 
 		try {
 			$stmt = $this->pdo->prepare("INSERT INTO tasks (user_id, task_title, task_text) VALUES(?, ?, ?)");
@@ -69,8 +33,8 @@ class TaskModel
 
 	public function getTasks(): array|false
 	{
-		if (!$this->prepareData()) return false;
-		if (!$this->validateData()) return false;
+		if (!$this->prepareData(data: $this->taskData)) return false;
+		if (!$this->validateData(data: $this->taskData)) return false;
 
 		try {
 			$stmt = $this->pdo->prepare("SELECT * FROM tasks WHERE user_id = ?");
@@ -85,8 +49,8 @@ class TaskModel
 
 	public function deleteTask(): bool
 	{
-		if (!$this->prepareData()) return false;
-		if (!$this->validateData()) return false;
+		if (!$this->prepareData(data: $this->taskData)) return false;
+		if (!$this->validateData(data: $this->taskData)) return false;
 
 		try {
 			$stmt = $this->pdo->prepare("DELETE FROM tasks WHERE task_id = ?");
