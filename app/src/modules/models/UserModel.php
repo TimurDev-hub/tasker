@@ -18,6 +18,8 @@ class UserModel extends TemplateModel
 
 	private function checkAccount(): bool
 	{
+		if (!isset($this->userData['user_name'])) return false;
+
 		try {
 			$stmt = $this->pdo->prepare("SELECT 1 FROM users WHERE user_name = ? LIMIT 1");
 			$stmt->execute([$this->userData['user_name']]);
@@ -31,6 +33,8 @@ class UserModel extends TemplateModel
 
 	public function getUserByName(): array|false
 	{
+		if (!isset($this->userData['user_name'])) return false;
+
 		if (!$this->prepareData(data: $this->userData)) return false;
 		if (!$this->validateData(data: $this->userData)) return false;
 
@@ -47,6 +51,8 @@ class UserModel extends TemplateModel
 
 	public function createAccount(): bool
 	{
+		if (!isset($this->userData['user_name'], $this->userData['user_password'])) return false;
+
 		if (!$this->prepareData(data: $this->userData)) return false;
 		if (!$this->validateData(data: $this->userData)) return false;
 		if ($this->checkAccount()) return false;
@@ -65,6 +71,8 @@ class UserModel extends TemplateModel
 
 	public function deleteAccount(): bool
 	{
+		if (!isset($this->userData['user_id'])) return false;
+
 		if (!$this->prepareData(data: $this->userData)) return false;
 		if (!$this->validateData(data: $this->userData)) return false;
 

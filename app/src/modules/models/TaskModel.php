@@ -18,6 +18,8 @@ class TaskModel extends TemplateModel
 
 	public function createTask(): bool
 	{
+		if (!isset($this->taskData['user_id'], $this->taskData['task_title'], $this->taskData['task_text'])) return false;
+
 		if (!$this->prepareData(data: $this->taskData)) return false;
 		if (!$this->validateData(data: $this->taskData)) return false;
 
@@ -33,6 +35,8 @@ class TaskModel extends TemplateModel
 
 	public function getTasks(): array|false
 	{
+		if (!isset($this->taskData['user_id'])) return false;
+
 		if (!$this->prepareData(data: $this->taskData)) return false;
 		if (!$this->validateData(data: $this->taskData)) return false;
 
@@ -49,6 +53,8 @@ class TaskModel extends TemplateModel
 
 	public function deleteTask(): bool
 	{
+		if (!isset($this->taskData['task_id'])) return false;
+	
 		if (!$this->prepareData(data: $this->taskData)) return false;
 		if (!$this->validateData(data: $this->taskData)) return false;
 
