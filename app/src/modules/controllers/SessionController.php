@@ -2,21 +2,13 @@
 
 namespace Controllers;
 
+use Templates\TemplateController;
 use Database\Database;
 use Models\UserModel;
-use Shared\ErrorLogger;
+use Utils\ErrorLogger;
 
-class SessionController
+class SessionController extends TemplateController
 {
-	private function checkData(array $requiredFields): bool
-	{
-		foreach ($requiredFields as $field) {
-			if (!isset($_POST[$field])) return false;
-		}
-
-		return true;
-	}
-
 	// login
 	public function get(): string
 	{
@@ -29,7 +21,7 @@ class SessionController
 			$db = new Database();
 			$pdo = $db->returnPdo();
 
-			$userModel = new UserModel(pdo: $pdo, userArray: $_POST);
+			$userModel = new UserModel(pdo: $pdo, userData: $_POST);
 			$user = $userModel->getUserByName();
 
 			if (!$user) {

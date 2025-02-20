@@ -2,21 +2,13 @@
 
 namespace Controllers;
 
+use Templates\TemplateController;
 use Database\Database;
 use Models\UserModel;
-use Shared\ErrorLogger;
+use Utils\ErrorLogger;
 
-class UserController
+class UserController extends TemplateController
 {
-	private function checkData(array $requiredFields): bool
-	{
-		foreach ($requiredFields as $field) {
-			if (!isset($_POST[$field])) return false;
-		}
-
-		return true;
-	}
-
 	// create account
 	public function post(): string
 	{
@@ -29,7 +21,7 @@ class UserController
 			$db = new Database();
 			$pdo = $db->returnPdo();
 
-			$userModel = new UserModel(pdo: $pdo, userArray: $_POST);
+			$userModel = new UserModel(pdo: $pdo, userData: $_POST);
 
 			if ($userModel->createAccount()) {
 				http_response_code(201);
@@ -58,7 +50,7 @@ class UserController
 			$db = new Database();
 			$pdo = $db->returnPdo();
 
-			$userModel = new UserModel(pdo: $pdo, userArray: $_POST);
+			$userModel = new UserModel(pdo: $pdo, userData: $_POST);
 
 			if ($userModel->deleteAccount()) {
 				session_destroy();

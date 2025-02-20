@@ -2,21 +2,13 @@
 
 namespace Controllers;
 
+use Templates\TemplateController;
 use Database\Database;
 use Models\TaskModel;
-use Shared\ErrorLogger;
+use Utils\ErrorLogger;
 
-class TaskContoller
+class TaskContoller extends TemplateController
 {
-	private function checkData(array $requiredFields): bool
-	{
-		foreach ($requiredFields as $field) {
-			if (!isset($_POST[$field])) return false;
-		}
-
-		return true;
-	}
-
 	// create task
 	public function post(): string
 	{
