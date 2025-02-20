@@ -2,9 +2,7 @@
 
 namespace Models;
 
-use PDO;
 use Shared\ErrorLogger;
-use Throwable;
 
 class UserModel
 {
@@ -13,10 +11,10 @@ class UserModel
 	private const MIN_PASS_SIZE = 12;
 	private const MAX_PASS_SIZE = 24;
 
-	private PDO $pdo;
+	private \PDO $pdo;
 	private array $userArray;
 
-	public function __construct(PDO $pdo, array $userArray)
+	public function __construct(\PDO $pdo, array $userArray)
 	{
 		$this->pdo = $pdo;
 		$this->userArray = $userArray;
@@ -62,7 +60,7 @@ class UserModel
 			$stmt->execute([$this->userArray['user_name']]);
 			return $stmt->fetchColumn() > 0;
 
-		} catch (Throwable $exc) {
+		} catch (\Throwable $exc) {
 			ErrorLogger::handleError($exc);
 			return true;
 		}
@@ -74,11 +72,11 @@ class UserModel
 		if (!$this->validateData()) return false;
 
 		try {
-			$stmt = $this->pdo->prepare("SELECT * FROM users WHERE user_name = ?");
+			$stmt = $this->pdo->prepare("SELECT user_id, user_name, user_password FROM users WHERE user_name = ?");
 			$stmt->execute([$this->userArray['user_name']]);
-			return $stmt->fetch(PDO::FETCH_ASSOC);
+			return $stmt->fetch(\PDO::FETCH_ASSOC);
 
-		} catch (Throwable $exc) {
+		} catch (\Throwable $exc) {
 			ErrorLogger::handleError($exc);
 			return false;
 		}
@@ -96,7 +94,7 @@ class UserModel
 			$stmt = $this->pdo->prepare("INSERT INTO users (user_name, user_password) VALUES (?, ?)");
 			return $stmt->execute([$this->userArray['user_name'], $hashedPassword]);
 
-		} catch (Throwable $exc) {
+		} catch (\Throwable $exc) {
 			ErrorLogger::handleError($exc);
 			return false;
 		}
@@ -111,7 +109,7 @@ class UserModel
 			$stmt = $this->pdo->prepare("DELETE FROM users WHERE user_id = ?");
 			return $stmt->execute([$this->userArray['user_id']]);
 
-		} catch (Throwable $exc) {
+		} catch (\Throwable $exc) {
 			ErrorLogger::handleError($exc);
 			return false;
 		}

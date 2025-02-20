@@ -2,9 +2,7 @@
 
 namespace Models;
 
-use PDO;
 use Shared\ErrorLogger;
-use Throwable;
 
 class TaskModel
 {
@@ -12,10 +10,10 @@ class TaskModel
 	private const MAX_TITLE_LEN = 32;
 	private const MAX_TASK_LEN = 128;
 
-	private PDO $pdo;
+	private \PDO $pdo;
 	private array $taskData;
 
-	public function __construct(PDO $pdo, array $taskData)
+	public function __construct(\PDO $pdo, array $taskData)
 	{
 		$this->pdo = $pdo;
 		$this->taskData = $taskData;
@@ -63,7 +61,7 @@ class TaskModel
 			$stmt = $this->pdo->prepare("INSERT INTO tasks (user_id, task_title, task_text) VALUES(?, ?, ?)");
 			return $stmt->execute([$this->taskData['user_id'], $this->taskData['task_title'], $this->taskData['task_text']]);
 
-		} catch (Throwable $exc) {
+		} catch (\Throwable $exc) {
 			ErrorLogger::handleError($exc);
 			return false;
 		}
@@ -77,9 +75,9 @@ class TaskModel
 		try {
 			$stmt = $this->pdo->prepare("SELECT * FROM tasks WHERE user_id = ?");
 			$stmt->execute([$this->taskData['user_id']]);
-			return $stmt->fetchAll(PDO::FETCH_ASSOC);
+			return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-		} catch (Throwable $exc) {
+		} catch (\Throwable $exc) {
 			ErrorLogger::handleError($exc);
 			return false;
 		}
@@ -94,7 +92,7 @@ class TaskModel
 			$stmt = $this->pdo->prepare("DELETE FROM tasks WHERE task_id = ?");
 			return $stmt->execute([$this->taskData['task_id']]);
 
-		} catch (Throwable $exc) {
+		} catch (\Throwable $exc) {
 			ErrorLogger::handleError($exc);
 			return false;
 		}
