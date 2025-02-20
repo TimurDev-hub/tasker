@@ -12,7 +12,8 @@
 			"Controllers\\": "app/src/modules/controllers/",
 			"Router\\": "app/src/core/router/",
 			"Database\\": "app/src/core/db/",
-			"Shared\\": "app/src/shared/"
+			"Utils\\": "app/src/shared/utils/",
+			"Templates\\": "app/src/shared/templates/"
 		}
 	}
 }
