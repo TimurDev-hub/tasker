@@ -5,7 +5,6 @@ namespace Controllers;
 use Database\Database;
 use Models\TaskModel;
 use Shared\ErrorLogger;
-use Throwable;
 
 class TaskContoller
 {
@@ -18,7 +17,8 @@ class TaskContoller
 		return true;
 	}
 
-	public function createTask(): string
+	// create task
+	public function post(): string
 	{
 		if (!$this->checkData(['user_id', 'task_title', 'task_text'])) {
 			http_response_code(400);
@@ -39,14 +39,15 @@ class TaskContoller
 				return json_encode(['error' => 'Failed to create task']);
 			}
 
-		} catch (Throwable $exc) {
+		} catch (\Throwable $exc) {
 			ErrorLogger::handleError($exc);
 			http_response_code(500);
 			return json_encode(['error' => 'Internal Server Error']);
 		}
 	}
 
-	public function loadTasks(): string
+	// get tasks
+	public function get(): string
 	{
 		if (!$this->checkData(['user_id'])) {
 			http_response_code(400);
@@ -67,13 +68,14 @@ class TaskContoller
 
 			return json_encode(['tasks' => $tasks]);
 
-		} catch (Throwable $exc) {
+		} catch (\Throwable $exc) {
 			ErrorLogger::handleError(exc: $exc);
 			return json_encode(['error' => 'Internal Server Error']);
 		}
 	}
 
-	public function deleteTask(): string
+	// delete task
+	public function delete(): string
 	{
 		if (!$this->checkData(['task_id'])) {
 			http_response_code(400);
@@ -94,7 +96,7 @@ class TaskContoller
 				return json_encode(['error' => 'Failed to delete task']);
 			}
 
-		} catch (Throwable $exc) {
+		} catch (\Throwable $exc) {
 			ErrorLogger::handleError(exc: $exc);
 			http_response_code(500);
 			return json_encode(['error' => 'Internal Server Error']);
