@@ -60,6 +60,7 @@ class UserController
 			$userModel = new UserModel(pdo: $pdo, userArray: $_POST);
 
 			if ($userModel->deleteAccount()) {
+				session_destroy();
 				http_response_code(200);
 				return json_encode(['message' => 'Deleted successfully!']);
 			} else {
