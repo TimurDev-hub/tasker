@@ -2,7 +2,7 @@
 
 namespace Router;
 
-use Shared\ErrorLogger;
+use Utils\ErrorLogger;
 
 class Router
 {
