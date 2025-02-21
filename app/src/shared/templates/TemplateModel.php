@@ -10,8 +10,8 @@ class TemplateModel
 	private const MIN_TASK_LEN = 8;
 	private const MAX_TASK_LEN = 128;
 
-	private const MIN_NAME_SIZE = 4;
-	private const MAX_NAME_SIZE = 16;
+	private const MIN_NAME_SIZE = 3;
+	private const MAX_NAME_SIZE = 12;
 
 	private const MIN_PASS_SIZE = 12;
 	private const MAX_PASS_SIZE = 24;
