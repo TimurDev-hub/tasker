@@ -44,6 +44,17 @@ body {
   background-color: rgb(20, 0, 60);
 }
 
+@media (hover: hover) {
+  button:hover {
+    cursor: pointer;
+  }
+}
+@media (hover: none) {
+  button:active {
+    cursor: pointer;
+  }
+}
+
 .container {
   width: 80%;
   padding-inline: calc(1.2vw + 1.2vh);
@@ -92,22 +103,24 @@ body {
   font-weight: 500;
   display: inline-block;
   padding: calc(0.3vw + 0.3vh) calc(0.9vw + 0.9vh);
-  background-color: rgb(55, 75, 255);
   border: calc(0.16vw + 0.16vh) solid transparent;
   border-radius: calc(0.16vw + 0.16vh);
-  color: rgb(255, 255, 255);
   transition-property: color, border-color, background-color;
   transition-duration: 200ms, 200ms, 200ms;
 }
+.header__menu-link--blue {
+  color: rgb(255, 255, 255);
+  background-color: rgb(55, 75, 255);
+}
 @media (hover: hover) {
-  .header__menu-link:hover {
+  .header__menu-link--blue:hover {
     color: rgb(55, 75, 255);
     border-color: rgb(55, 75, 255);
     background-color: rgb(255, 255, 255);
   }
 }
 @media (hover: none) {
-  .header__menu-link:active {
+  .header__menu-link--blue:active {
     color: rgb(55, 75, 255);
     border-color: rgb(55, 75, 255);
     background-color: rgb(255, 255, 255);
@@ -130,6 +143,10 @@ body {
     border-color: rgb(255, 255, 0);
     background-color: rgb(0, 0, 0);
   }
+}
+.header__menu-link--account {
+  background-color: rgb(0, 235, 0);
+  color: rgb(255, 255, 255);
 }
 
 .main {

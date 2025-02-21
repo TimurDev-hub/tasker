@@ -33,17 +33,20 @@
 			@include font.fontConfigExtended('InterRegular', normal, var.$textSizeNormal, 500);
 			display: inline-block;
 			padding: func.viewportSum(.3) func.viewportSum(.9);
-			background-color: color.$blue;
 			border: func.viewportSum(var.$borderSizeNormal) solid transparent;
 			border-radius: func.viewportSum(var.$borderRadiusNormal);
-			color: color.$white;
 			transition-property: color, border-color, background-color;
 			transition-duration: var.$fastDuration, var.$fastDuration, var.$fastDuration;
 
-			@include media.hoverEffect {
-				color: color.$blue;
-				border-color: color.$blue;
-				background-color: color.$white;
+			&--blue {
+				color: color.$white;
+				background-color: color.$blue;
+
+				@include media.hoverEffect {
+					color: color.$blue;
+					border-color: color.$blue;
+					background-color: color.$white;
+				}
 			}
 
 			&--yellow {
@@ -55,6 +58,11 @@
 					border-color: color.$yellow;
 					background-color: color.$black;
 				}
+			}
+
+			&--account {
+				background-color: color.$green;
+				color: color.$white;
 			}
 		}
 	}

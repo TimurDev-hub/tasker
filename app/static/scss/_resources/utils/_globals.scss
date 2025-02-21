@@ -1,4 +1,5 @@
 @use "../tokens/colors" as color;
+@use "../mixins/media" as media;
 
 html {
 	display: block;
@@ -12,4 +13,10 @@ body {
 	height: 100%;
 	position: relative;
 	background-color: color.$mediumDarkGrey;
+}
+
+button {
+	@include media.hoverEffect {
+		cursor: pointer;
+	}
 }
