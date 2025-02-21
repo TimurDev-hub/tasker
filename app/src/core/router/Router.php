@@ -22,9 +22,10 @@ class Router
 			if (!method_exists($controller, $method)) throw new \Exception('Method not found: ' . $method);
 
 			header('Content-Type: application/json');
+			http_response_code(200);
 			echo $controller->$method();
 
-		} catch (\Exception $exc) {
+		} catch (\Throwable $exc) {
 			ErrorLogger::handleError(exc: $exc);
 			http_response_code(404);
 			header('Content-Type: application/json');
