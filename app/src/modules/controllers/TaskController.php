@@ -53,7 +53,7 @@ class TaskContoller extends TemplateController
 			$taskModel = new TaskModel(pdo: $pdo, taskData: $_POST);
 			$tasks = $taskModel->getTasks();
 
-			if (!$tasks) {
+			if ($tasks === false) {
 				http_response_code(500);
 				return json_encode(['error' => 'Internal Server Error']);
 			}
