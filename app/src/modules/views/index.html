@@ -16,18 +16,33 @@
 		<header class="header">
 			<div class="header__container container">
 				<div class="header__logo-wrapper">
-					<a href="/home" title="Home" class="header__logo logo" target="_self">Tasker</a>
+					<a href="/" title="Home" class="header__logo logo" target="_self">Tasker</a>
 				</div>
 				<nav class="header__nav">
 					<ul class="header__menu">
 						<li class="header__menu-item">
-							<a href="/login" class="header__menu-link" target="_self">Log in</a>
+							<a data-route="login" class="header__menu-link header__menu-link--blue">Log in</a>
 						</li>
 						<li class="header__menu-item">
-							<a href="/registration" class="header__menu-link header__menu-link--yellow" target="_self">Registration</a>
+							<a data-route="registration" class="header__menu-link header__menu-link--yellow">Registration</a>
 						</li>
 					</ul>
 				</nav>
+				<!--
+				<div class="header__user-block">
+					<ul class="header__menu">
+						<li class="header__menu-item">
+							<p class="header__menu-link header__menu-link--account">Account</p>
+						</li>
+						<li class="header__menu-item">
+							<button class="header__menu-link header__menu-link--yellow">Log out</button>
+						</li>
+						<li class="header__menu-item">
+							<button class="header__menu-link header__menu-link--yellow">Delete</button>
+						</li>
+					</ul>
+				</div>
+				-->
 				<!--
 				<div class="header__burger-button">
 					<span class="header__burger-button-line"></span>
