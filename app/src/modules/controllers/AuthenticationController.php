@@ -7,12 +7,12 @@ use Database\Database;
 use Models\UserModel;
 use Utils\ErrorLogger;
 
-class SessionController extends TemplateController
+class AuthenticationController extends TemplateController
 {
 	// login
 	public function get(): string
 	{
-		$sessionData = $this->getJsonContents(url: '/');
+		$sessionData = $this->getJsonContents();
 
 		if (!$this->checkData(requiredFields: ['user_name', 'user_password'], data: $sessionData)) {
 			http_response_code(400);
@@ -36,14 +36,10 @@ class SessionController extends TemplateController
 				return json_encode(['error' => 'Invalid credentials']);
 			}
 
-			session_start();
+			setcookie('user_id', $user['user_id'], time() + 3600);
+			setcookie('user_name', $user['user_name'], time() + 3600);
 
-			session_regenerate_id();
-
-			$_SESSION['user_id'] = $user['user_id'];
-			$_SESSION['user_name'] = $user['user_name'];
-
-			return json_encode(['error' => 'Login successful!']);
+			return json_encode(['message' => 'Login successful!']);
 
 		} catch (\Throwable $exc) {
 			ErrorLogger::handleError(exc: $exc);
@@ -55,7 +51,9 @@ class SessionController extends TemplateController
 	// logout
 	public function delete(): string
 	{
-		session_destroy();
+		setcookie('user_id', "", time() - 3600);
+		setcookie('user_name', "", time() - 3600);
+
 		http_response_code(200);
 		return json_encode(['message' => 'Logged out successfully!']);
 	}
