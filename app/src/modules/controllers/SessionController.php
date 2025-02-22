@@ -12,7 +12,9 @@ class SessionController extends TemplateController
 	// login
 	public function get(): string
 	{
-		if (!$this->checkData(['user_name', 'user_password'])) {
+		$sessionData = $this->getJsonContents(url: '/');
+
+		if (!$this->checkData(requiredFields: ['user_name', 'user_password'], data: $sessionData)) {
 			http_response_code(400);
 			return json_encode(['Missing required fields']);
 		}
@@ -21,7 +23,7 @@ class SessionController extends TemplateController
 			$db = new Database();
 			$pdo = $db->returnPdo();
 
-			$userModel = new UserModel(pdo: $pdo, userData: $_POST);
+			$userModel = new UserModel(pdo: $pdo, userData: $sessionData);
 			$user = $userModel->getUserByName();
 
 			if (!$user) {
@@ -33,6 +35,8 @@ class SessionController extends TemplateController
 				http_response_code(401);
 				return json_encode(['error' => 'Invalid credentials']);
 			}
+
+			session_start();
 
 			session_regenerate_id();
 

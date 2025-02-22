@@ -12,7 +12,9 @@ class UserController extends TemplateController
 	// create account
 	public function post(): string
 	{
-		if (!$this->checkData(['user_name', 'user_password'])) {
+		$userData = $this->getJsonContents(url: '/');
+
+		if (!$this->checkData(requiredFields: ['user_name', 'user_password'], data: $userData)) {
 			http_response_code(400);
 			return json_encode(['Missing required fields']);
 		}
@@ -21,7 +23,7 @@ class UserController extends TemplateController
 			$db = new Database();
 			$pdo = $db->returnPdo();
 
-			$userModel = new UserModel(pdo: $pdo, userData: $_POST);
+			$userModel = new UserModel(pdo: $pdo, userData: $userData);
 
 			if ($userModel->createAccount()) {
 				http_response_code(201);
@@ -41,7 +43,9 @@ class UserController extends TemplateController
 	// delete account
 	public function delete(): string
 	{
-		if (!$this->checkData(['user_id'])) {
+		$userData = $this->getJsonContents(url: '/');
+
+		if (!$this->checkData(requiredFields: ['user_id'], data: $userData)) {
 			http_response_code(400);
 			return json_encode(['Missing required fields']);
 		}
@@ -50,7 +54,7 @@ class UserController extends TemplateController
 			$db = new Database();
 			$pdo = $db->returnPdo();
 
-			$userModel = new UserModel(pdo: $pdo, userData: $_POST);
+			$userModel = new UserModel(pdo: $pdo, userData: $userData);
 
 			if ($userModel->deleteAccount()) {
 				session_destroy();

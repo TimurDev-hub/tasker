@@ -12,7 +12,9 @@ class TaskContoller extends TemplateController
 	// create task
 	public function post(): string
 	{
-		if (!$this->checkData(['user_id', 'task_title', 'task_text'])) {
+		$taskData = $this->getJsonContents(url: '/');
+
+		if (!$this->checkData(requiredFields: ['user_id', 'task_title', 'task_text'], data: $taskData)) {
 			http_response_code(400);
 			return json_encode(['Missing required fields']);
 		}
@@ -21,7 +23,7 @@ class TaskContoller extends TemplateController
 			$db = new Database();
 			$pdo = $db->returnPdo();
 
-			$taskModel = new TaskModel(pdo: $pdo, taskData: $_POST);
+			$taskModel = new TaskModel(pdo: $pdo, taskData: $taskData);
 
 			if ($taskModel->createTask()) {
 				http_response_code(201);
@@ -41,7 +43,9 @@ class TaskContoller extends TemplateController
 	// get tasks
 	public function get(): string
 	{
-		if (!$this->checkData(['user_id'])) {
+		$taskData = $this->getJsonContents(url: '/');
+
+		if (!$this->checkData(requiredFields: ['user_id'], data: $taskData)) {
 			http_response_code(400);
 			return json_encode(['Missing required fields']);
 		}
@@ -50,7 +54,7 @@ class TaskContoller extends TemplateController
 			$db = new Database();
 			$pdo = $db->returnPdo();
 
-			$taskModel = new TaskModel(pdo: $pdo, taskData: $_POST);
+			$taskModel = new TaskModel(pdo: $pdo, taskData: $taskData);
 			$tasks = $taskModel->getTasks();
 
 			if ($tasks === false) {
@@ -69,7 +73,9 @@ class TaskContoller extends TemplateController
 	// delete task
 	public function delete(): string
 	{
-		if (!$this->checkData(['task_id'])) {
+		$taskData = $this->getJsonContents(url: '/');
+
+		if (!$this->checkData(requiredFields: ['task_id'], data: $taskData)) {
 			http_response_code(400);
 			return json_encode(['Missing required fields']);
 		}
@@ -78,7 +84,7 @@ class TaskContoller extends TemplateController
 			$db = new Database();
 			$pdo = $db->returnPdo();
 
-			$taskModel = new TaskModel(pdo: $pdo, taskData: $_POST);
+			$taskModel = new TaskModel(pdo: $pdo, taskData: $taskData);
 
 			if ($taskModel->deleteTask()) {
 				http_response_code(200);
