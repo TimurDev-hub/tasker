@@ -1,4 +1,4 @@
-// header templates
+
 export const headerNavbar = `
 	<nav class="header__nav">
 		<ul class="header__menu">
@@ -11,6 +11,7 @@ export const headerNavbar = `
 		</ul>
 	</nav>
 `
+
 export const headerUserblock = `
 	<div class="header__user-block">
 		<ul class="header__menu">
@@ -27,7 +28,6 @@ export const headerUserblock = `
 	</div>
 `
 
-// main templates
 export const mainRegistration = `
 	<section class="sections sections--userforms">
 		<legend class="sections__header sections__header--userforms">Registration</legend>
@@ -40,10 +40,11 @@ export const mainRegistration = `
 				<label for="password" class="sections__title">Password</label>
 				<input id="password" name="user_password" type="password" class="sections__text sections__text--userforms main__inputs" placeholder="...and a strong password!" maxlength="24" required>
 			</fieldset>
-			<button type="submit" class="sections__submit">Submit</button>
+			<button name="submitButton" type="submit" class="sections__submit">Submit</button>
 		</form>
 	</section>
 `
+
 export const mainLogin = `
 	<section class="sections sections--userforms">
 		<legend class="sections__header sections__header--userforms">Login</legend>
@@ -60,6 +61,7 @@ export const mainLogin = `
 		</form>
 	</section>
 `
+
 export const mainCreate = `
 	<section class="sections">
 		<legend class="sections__header">Add new task</legend>
@@ -78,7 +80,6 @@ export const mainCreate = `
 	</section>
 `
 
-// tasks templates
 export const taskArea = `
 	<section class="sections">
 		<legend class="sections__header">Tasks list</legend>
@@ -87,6 +88,7 @@ export const taskArea = `
 		</div>
 	</section>
 `
+
 export const taskTemplate = `
 	<div class="sections__task">
 		<form class="sections__form sections__form--task">
