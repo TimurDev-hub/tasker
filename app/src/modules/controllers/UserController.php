@@ -12,7 +12,7 @@ class UserController extends TemplateController
 	// create account
 	public function post(): string
 	{
-		$userData = $this->getJsonContents(url: '/');
+		$userData = $this->getJsonContents();
 
 		if (!$this->checkData(requiredFields: ['user_name', 'user_password'], data: $userData)) {
 			http_response_code(400);
@@ -25,13 +25,13 @@ class UserController extends TemplateController
 
 			$userModel = new UserModel(pdo: $pdo, userData: $userData);
 
-			if ($userModel->createAccount()) {
-				http_response_code(201);
-				return json_encode(['message' => 'Created successfully!']);
-			} else {
+			if (!$userModel->createAccount()) {
 				http_response_code(400);
 				return json_encode(['error' => 'Failed to create account']);
 			}
+
+			http_response_code(201);
+			return json_encode(['message' => 'Created successfully!']);
 
 		} catch (\Throwable $exc) {
 			ErrorLogger::handleError(exc: $exc);
@@ -43,7 +43,7 @@ class UserController extends TemplateController
 	// delete account
 	public function delete(): string
 	{
-		$userData = $this->getJsonContents(url: '/');
+		$userData = $this->getJsonContents();
 
 		if (!$this->checkData(requiredFields: ['user_id'], data: $userData)) {
 			http_response_code(400);
@@ -56,14 +56,16 @@ class UserController extends TemplateController
 
 			$userModel = new UserModel(pdo: $pdo, userData: $userData);
 
-			if ($userModel->deleteAccount()) {
-				session_destroy();
-				http_response_code(200);
-				return json_encode(['message' => 'Deleted successfully!']);
-			} else {
+			if (!$userModel->deleteAccount()) {
 				http_response_code(400);
 				return json_encode(['error' => 'Failed to delete account']);
 			}
+
+			setcookie('user_id', "", time() - 3600);
+			setcookie('user_name', "", time() - 3600);
+
+			http_response_code(200);
+			return json_encode(['message' => 'Deleted successfully!']);
 
 		} catch (\Throwable $exc) {
 			ErrorLogger::handleError(exc: $exc);
