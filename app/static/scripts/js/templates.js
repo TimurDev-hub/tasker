@@ -82,7 +82,7 @@ export const mainCreate = `
 export const taskArea = `
 	<section class="sections">
 		<legend class="sections__header">Tasks list</legend>
-		<div class="sections__tasks-list">
+		<div id="tasks-root" class="sections__tasks-list">
 
 		</div>
 	</section>
