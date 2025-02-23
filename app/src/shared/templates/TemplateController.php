@@ -4,8 +4,8 @@ namespace Templates;
 
 class TemplateController
 {
-	protected function getJsonContents(string $url): array {
-		$json = file_get_contents($url);
+	protected function getJsonContents(): array {
+		$json = file_get_contents('php://input');
 		return json_decode($json, true);
 	}
 
