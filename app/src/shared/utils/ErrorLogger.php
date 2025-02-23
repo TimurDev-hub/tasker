@@ -4,7 +4,7 @@ namespace Utils;
 
 class ErrorLogger
 {
-	private const LOCAL_LOG_FILE_PATH = __DIR__ . '../../../core/logs/errors.log';
+	private const LOCAL_LOG_FILE_PATH = __DIR__ . '/../../core/logs/errors.log';
 
 	private function getPrefix(): string
 	{
