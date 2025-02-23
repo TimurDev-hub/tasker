@@ -12,7 +12,7 @@ class TaskContoller extends TemplateController
 	// create task
 	public function post(): string
 	{
-		$taskData = $this->getJsonContents(url: '/');
+		$taskData = $this->getJsonContents();
 
 		if (!$this->checkData(requiredFields: ['user_id', 'task_title', 'task_text'], data: $taskData)) {
 			http_response_code(400);
@@ -25,13 +25,13 @@ class TaskContoller extends TemplateController
 
 			$taskModel = new TaskModel(pdo: $pdo, taskData: $taskData);
 
-			if ($taskModel->createTask()) {
-				http_response_code(201);
-				return json_encode(['message' => 'Created successfully!']);
-			} else {
+			if (!$taskModel->createTask()) {
 				http_response_code(400);
 				return json_encode(['error' => 'Failed to create task']);
 			}
+
+			http_response_code(201);
+			return json_encode(['message' => 'Created successfully!']);
 
 		} catch (\Throwable $exc) {
 			ErrorLogger::handleError($exc);
@@ -43,7 +43,7 @@ class TaskContoller extends TemplateController
 	// get tasks
 	public function get(): string
 	{
-		$taskData = $this->getJsonContents(url: '/');
+		$taskData = $this->getJsonContents();
 
 		if (!$this->checkData(requiredFields: ['user_id'], data: $taskData)) {
 			http_response_code(400);
@@ -73,7 +73,7 @@ class TaskContoller extends TemplateController
 	// delete task
 	public function delete(): string
 	{
-		$taskData = $this->getJsonContents(url: '/');
+		$taskData = $this->getJsonContents();
 
 		if (!$this->checkData(requiredFields: ['task_id'], data: $taskData)) {
 			http_response_code(400);
@@ -86,13 +86,13 @@ class TaskContoller extends TemplateController
 
 			$taskModel = new TaskModel(pdo: $pdo, taskData: $taskData);
 
-			if ($taskModel->deleteTask()) {
-				http_response_code(200);
-				return json_encode(['message' => 'Deleted successfully!']);
-			} else {
+			if (!$taskModel->deleteTask()) {
 				http_response_code(400);
 				return json_encode(['error' => 'Failed to delete task']);
 			}
+
+			http_response_code(200);
+			return json_encode(['message' => 'Deleted successfully!']);
 
 		} catch (\Throwable $exc) {
 			ErrorLogger::handleError(exc: $exc);
