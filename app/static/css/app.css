@@ -60,6 +60,24 @@ body {
   padding-inline: calc(1.2vw + 1.2vh);
 }
 
+.message {
+  display: inline-block;
+}
+.message__text {
+  font-family: monospace, sans-serif;
+  font-style: normal;
+  font-size: calc(0.9vw + 0.9vh);
+  font-weight: 500;
+  display: inline-block;
+  margin-top: calc(0.3vw + 0.3vh);
+  padding: calc(0.3vw + 0.3vh) calc(0.6vw + 0.6vh);
+  border-radius: calc(0.16vw + 0.16vh);
+  background-color: rgb(255, 255, 255);
+}
+.message__text--yes {
+  color: rgb(0, 235, 0);
+}
+
 .header {
   display: flex;
   flex-direction: row;

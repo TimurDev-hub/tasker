@@ -1,0 +1,24 @@
+@use "../_resources/mixins/display" as display;
+@use "../_resources/mixins/font" as font;
+@use "../_resources/mixins/media" as media;
+@use "../_resources/mixins/size" as size;
+@use "../_resources/tokens/variables" as var;
+@use "../_resources/tokens/colors" as color;
+@use "../_resources/utils/functions" as func;
+
+.message {
+	display: inline-block;
+
+	&__text {
+		@include font.fontConfigExtended(monospace, normal, var.$textSizeLow, 500);
+		display: inline-block;
+		margin-top: func.viewportSum(.3);
+		padding: func.viewportSum(.3) func.viewportSum(.6);
+		border-radius: func.viewportSum(var.$borderRadiusNormal);
+		background-color: color.$white;
+
+		&--yes {
+			color: color.$green;
+		}
+	}
+}
