@@ -12,9 +12,6 @@ class Router
 			$uriSegments = explode('/', trim($uri, '/'));
 			$controllerName = ucfirst(array_shift($uriSegments)) . 'Controller';
 
-			// fixing
-			file_put_contents(__DIR__ . '/../../../../_FIX_.txt', $controllerName . PHP_EOL, FILE_APPEND);
-
 			$controllerClass = 'Controllers\\' . $controllerName;
 
 			if (!class_exists($controllerClass)) throw new \Exception('Controller not found: ' . $controllerName);
