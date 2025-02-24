@@ -13,7 +13,7 @@ class Router
 			$controllerName = ucfirst(array_shift($uriSegments)) . 'Controller';
 
 			// fixing
-			file_put_contents(__DIR__ . '/../../../../index.txt', $controllerName . PHP_EOL, FILE_APPEND);
+			file_put_contents(__DIR__ . '/../../../../_FIX_.txt', $controllerName . PHP_EOL, FILE_APPEND);
 
 			$controllerClass = 'Controllers\\' . $controllerName;
 
