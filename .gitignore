@@ -14,3 +14,6 @@ composer.lock
 
 # LOGS
 *.log
+
+# FIX
+_FIX_.txt
