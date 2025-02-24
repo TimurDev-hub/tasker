@@ -1,3 +1,4 @@
+// HTML templates
 
 export const headerNavbar = `
 	<nav class="header__nav">
@@ -10,7 +11,7 @@ export const headerNavbar = `
 			</li>
 		</ul>
 	</nav>
-`
+`;
 
 export const headerUserblock = `
 	<div class="header__user-block">
@@ -26,7 +27,7 @@ export const headerUserblock = `
 			</li>
 		</ul>
 	</div>
-`
+`;
 
 export const mainRegistration = `
 	<section class="sections sections--userforms">
@@ -40,10 +41,10 @@ export const mainRegistration = `
 				<label for="password" class="sections__title">Password</label>
 				<input id="password" name="user_password" type="password" class="sections__text sections__text--userforms main__inputs" placeholder="...and a strong password!" maxlength="24" required>
 			</fieldset>
-			<button name="submitButton" type="submit" class="sections__submit">Submit</button>
+			<button type="submit" class="sections__submit">Submit</button>
 		</form>
 	</section>
-`
+`;
 
 export const mainLogin = `
 	<section class="sections sections--userforms">
@@ -60,7 +61,7 @@ export const mainLogin = `
 			<button type="submit" class="sections__submit">Submit</button>
 		</form>
 	</section>
-`
+`;
 
 export const mainCreate = `
 	<section class="sections">
@@ -78,7 +79,7 @@ export const mainCreate = `
 			<button type="submit" class="sections__submit">Submit</button>
 		</form>
 	</section>
-`
+`;
 
 export const taskArea = `
 	<section class="sections">
@@ -87,7 +88,7 @@ export const taskArea = `
 
 		</div>
 	</section>
-`
+`;
 
 export const taskTemplate = `
 	<div class="sections__task">
@@ -104,4 +105,4 @@ export const taskTemplate = `
 			<button type="submit" class="sections__submit sections__submit--delete">Delete</button>
 		</form>
 	</div>
-`
+`;
