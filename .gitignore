@@ -11,3 +11,6 @@ composer.lock
 
 # MAP-FILES
 *.map
+
+# LOGS
+*.log
