@@ -10,7 +10,7 @@ class Database
 
 	public function __construct()
 	{
-		$envParser = new EnvParser(__DIR__ . '/../../../.env');
+		$envParser = new EnvParser(__DIR__ . '/../../../../.env');
 		$envFile = $envParser->parseFile();
 
 		if (!$envFile) throw new \Exception("Failed to load .env file");
