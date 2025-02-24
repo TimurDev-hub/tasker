@@ -6,12 +6,12 @@ class ErrorLogger
 {
 	private const LOCAL_LOG_FILE_PATH = __DIR__ . '/../../core/logs/errors.log';
 
-	private function getPrefix(): string
+	private static function getPrefix(): string
 	{
 		return 'PHP FATAL ERROR: ' . date('Y-m-d H:i:s') . ': ';
 	}
 
-	private function getInfo(\Throwable $exc): string
+	private static function getInfo(\Throwable $exc): string
 	{
 		return 'MESSAGE => ' . $exc->getMessage() . '; FILE=> ' . $exc->getFile() . '; LINE=> ' . $exc->getLine();
 	}
