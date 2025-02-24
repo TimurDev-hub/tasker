@@ -1,4 +1,4 @@
-import { headerNavbar, mainRegistration, mainLogin } from './templates.js';
+import { headerNavbar, mainRegistration } from './templates.js';
 import { getCookie, sendData } from './functions.js';
 
 const userId = getCookie('user_id');
@@ -37,6 +37,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			const jsonData = JSON.stringify(registrationData);
 
 			const apiAnswer = await sendData(jsonData, '/user', 'POST');
+
+			console.log(typeof apiAnswer.message);
+
+			document.getElementById('message').innerHTML = `<p class="message__text message__text--yes">${apiAnswer.message}</p>`;
 		});
 	}
 });

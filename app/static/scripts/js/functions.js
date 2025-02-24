@@ -13,6 +13,6 @@ export async function sendData(jsonData, uri, method) {
 	});
 
 	const responseData = await response.json();
-	
+
 	return responseData;
 }
