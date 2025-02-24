@@ -1,5 +1,5 @@
 import { headerNavbar, mainRegistration, mainLogin } from './templates.js';
-import { getCookie, sendRegistrationData } from './functions.js';
+import { getCookie, sendData } from './functions.js';
 
 const userId = getCookie('user_id');
 
@@ -23,7 +23,7 @@ document.getElementById('main-root').innerHTML = mainRegistration;
 
 document.addEventListener('DOMContentLoaded', function() {
 	if (document.getElementById('registrationForm')) {
-		document.getElementById('registrationForm').addEventListener('submit', function(event) {
+		document.getElementById('registrationForm').addEventListener('submit', async function(event) {
 			event.preventDefault();
 
 			const username = document.getElementById('username').value;
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			const jsonData = JSON.stringify(registrationData);
 
-			sendRegistrationData(jsonData, '/user');
+			const apiAnswer = await sendData(jsonData, '/user', 'POST');
 		});
 	}
 });
