@@ -13,7 +13,7 @@ class Database
 		$envParser = new EnvParser(__DIR__ . '/../../../../.env');
 		$envFile = $envParser->parseFile();
 
-		if (!$envFile) throw new \Exception("Failed to load .env file");
+		if (!$envFile) throw new \Exception('Failed to load .env file');
 
 		$dbHost = $envFile['DB_HOST'];
 		$dbName = $envFile['DB_NAME'];
