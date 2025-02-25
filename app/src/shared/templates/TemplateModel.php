@@ -7,16 +7,16 @@ class TemplateModel
 	private const MIN_TITLE_LEN = 4;
 	private const MAX_TITLE_LEN = 32;
 
-	private const MIN_TASK_LEN = 8;
+	private const MIN_TASK_LEN = 6;
 	private const MAX_TASK_LEN = 128;
 
 	private const MIN_NAME_SIZE = 3;
 	private const MAX_NAME_SIZE = 12;
 
 	private const MIN_PASS_SIZE = 8;
-	private const MAX_PASS_SIZE = 24;
+	private const MAX_PASS_SIZE = 16;
 
-	protected function prepareData(array $data): bool
+	protected function prepareData(array &$data): bool
 	{
 		if (empty($data)) return false;
 
