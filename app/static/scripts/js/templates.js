@@ -60,6 +60,7 @@ export const mainLogin = `
 				<input id="password" name="user_password" type="password" class="sections__text sections__text--userforms main__inputs" placeholder="Your password is..." maxlength="24" required>
 			</fieldset>
 			<button type="submit" class="sections__submit">Submit</button>
+			<span id="message"></span>
 		</form>
 	</section>
 `;

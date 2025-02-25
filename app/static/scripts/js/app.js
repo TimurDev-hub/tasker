@@ -1,28 +1,26 @@
-import { headerNavbar, mainRegistration } from './templates.js';
-import { getCookie, sendData } from './functions.js';
+import { headerNavbar, mainLogin, mainRegistration } from './templates.js';
+import { getCookie, setupRegistrationForm } from './functions.js';
 
 const userId = getCookie('user_id');
 
-/*
+
 if (userId === null) {
 	document.getElementById('header-root').innerHTML = headerNavbar;
 	document.getElementById('main-root').innerHTML = mainLogin;
 
 	document.getElementById('registration-link').addEventListener('click', function() {
 		document.getElementById('main-root').innerHTML = mainRegistration;
+		setupRegistrationForm();
 	});
 
 	document.getElementById('login-link').addEventListener('click', function() {
 		document.getElementById('main-root').innerHTML = mainLogin;
 	});
 }
-*/
 
-document.getElementById('header-root').innerHTML = headerNavbar;
-document.getElementById('main-root').innerHTML = mainRegistration;
-
+/*
 document.addEventListener('DOMContentLoaded', function() {
-	if (document.getElementById('registrationForm')) {
+	if (userId === null && document.getElementById('registrationForm')) {
 		document.getElementById('registrationForm').addEventListener('submit', async function(event) {
 			event.preventDefault();
 
@@ -38,9 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			const apiAnswer = await sendData(jsonData, '/user', 'POST');
 
-			console.log(typeof apiAnswer.message);
-
-			document.getElementById('message').innerHTML = `<p class="message__text message__text--yes">${apiAnswer.message}</p>`;
+			renderMessage('message__text--yes', apiAnswer.message);
 		});
 	}
 });
+*/
