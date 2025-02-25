@@ -17,8 +17,12 @@
 		border-radius: func.viewportSum(var.$borderRadiusNormal);
 		background-color: color.$white;
 
-		&--yes {
+		&--success {
 			color: color.$green;
+		}
+
+		&--error {
+			color: color.$red;
 		}
 	}
 }
