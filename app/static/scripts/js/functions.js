@@ -39,7 +39,11 @@ export function setupRegistrationForm() {
 
 			const apiAnswer = await sendData(jsonData, '/user', 'POST');
 
-			renderMessage('message__text--yes', apiAnswer.message);
+			if (apiAnswer.message) {
+				renderMessage('message__text--success', apiAnswer.message);
+			} else if (apiAnswer.error) {
+				renderMessage('message__text--error', apiAnswer.error);
+			}
 		});
 	}
 }
