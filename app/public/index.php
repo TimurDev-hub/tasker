@@ -7,7 +7,7 @@ use Router\Router;
 $uri = $_SERVER['REQUEST_URI'];
 $methodType = $_SERVER['REQUEST_METHOD'];
 
-if ($uri === '/authentication' || $uri === '/user' ) {
+if ($uri === '/authentication' || $uri === '/user' || $uri === '/task') {
 	$router = new Router();
 	$router->handleRequest(uri: $uri, methodType: $methodType);
 
