@@ -9,9 +9,7 @@ class Router
 	public function handleRequest(string $uri, string $methodType): void
 	{
 		try {
-			$uriSegments = explode('/', trim($uri, '/'));
-			$controllerName = ucfirst(array_shift($uriSegments)) . 'Controller';
-
+			$controllerName = ucfirst(trim($uri, '/')) . 'Controller';
 			$controllerClass = 'Controllers\\' . $controllerName;
 
 			if (!class_exists($controllerClass)) throw new \Exception('Controller not found: ' . $controllerName);
