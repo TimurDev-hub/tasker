@@ -1,4 +1,8 @@
 // HTML templates
+import { getCookie } from "./utils.js";
+
+const userName = getCookie('user_name');
+
 
 export const headerNavbar = `
 	<nav class="header__nav">
@@ -17,7 +21,7 @@ export const headerUserblock = `
 	<div class="header__user-block">
 		<ul class="header__menu">
 			<li class="header__menu-item">
-				<p class="header__menu-link header__menu-link--account">____</p>
+				<p class="header__menu-link header__menu-link--account">${userName}</p>
 			</li>
 			<li class="header__menu-item">
 				<button class="header__menu-link header__menu-link--yellow">Log out</button>
