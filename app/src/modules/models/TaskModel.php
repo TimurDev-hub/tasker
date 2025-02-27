@@ -41,7 +41,7 @@ class TaskModel extends TemplateModel
 		if (!$this->validateData(data: $this->taskData)) return false;
 
 		try {
-			$stmt = $this->pdo->prepare("SELECT * FROM tasks WHERE user_id = ?");
+			$stmt = $this->pdo->prepare("SELECT task_id, task_title, task_text FROM tasks WHERE user_id = ?");
 			$stmt->execute([$this->taskData['user_id']]);
 			return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 

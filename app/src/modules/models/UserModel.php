@@ -18,8 +18,6 @@ class UserModel extends TemplateModel
 
 	private function checkAccount(): bool
 	{
-		if (!isset($this->userData['user_name'])) return false;
-
 		try {
 			$stmt = $this->pdo->prepare("SELECT 1 FROM users WHERE user_name = ? LIMIT 1");
 			$stmt->execute([$this->userData['user_name']]);
@@ -77,10 +75,19 @@ class UserModel extends TemplateModel
 		if (!$this->validateData(data: $this->userData)) return false;
 
 		try {
+			$this->pdo->beginTransaction();
+
+			$stmt = $this->pdo->prepare("DELETE FROM tasks WHERE user_id = ?");
+			if (!$stmt->execute([$this->userData['user_id']])) throw new \Exception('Failed to delete tasks from tasks table');
+
 			$stmt = $this->pdo->prepare("DELETE FROM users WHERE user_id = ?");
-			return $stmt->execute([$this->userData['user_id']]);
+			if (!$stmt->execute([$this->userData['user_id']])) throw new \Exception('Failed to delete user from users table');
+
+			$this->pdo->commit();
+			return true;
 
 		} catch (\Throwable $exc) {
+			if ($this->pdo->inTransaction()) $this->pdo->rollBack();
 			ErrorLogger::handleError($exc);
 			return false;
 		}
