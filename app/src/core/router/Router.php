@@ -6,16 +6,17 @@ use Utils\ErrorLogger;
 
 class Router
 {
-	public function handleRequest(string $uri, string $methodType): void
+	public function handleRequest(string $uri): void
 	{
 		try {
-			$controllerName = ucfirst(trim($uri, '/')) . 'Controller';
-			$controllerClass = 'Controllers\\' . $controllerName;
+			$uriSegments = explode('/', trim($uri, '/'), 2);
 
-			if (!class_exists($controllerClass)) throw new \Exception('Controller not found: ' . $controllerName);
+			$controllerClass = 'Controllers\\' . ucfirst($uriSegments[0]) . 'Controller';
+
+			if (!class_exists($controllerClass)) throw new \Exception('Controller not found: ' . $controllerClass);
 
 			$controller = new $controllerClass();
-			$method = strtolower($methodType);
+			$method = $uriSegments[1];
 
 			if (!method_exists($controller, $method)) throw new \Exception('Method not found: ' . $method);
 
