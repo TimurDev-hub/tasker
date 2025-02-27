@@ -10,13 +10,13 @@ use Utils\ErrorLogger;
 class UserController extends TemplateController
 {
 	// create account
-	public function post(): string
+	public function registerUser(): string
 	{
 		$userData = $this->getJsonContents();
 
 		if (!$this->checkData(requiredFields: ['user_name', 'user_password'], data: $userData)) {
 			http_response_code(400);
-			return json_encode(['Missing required fields']);
+			return json_encode(['error' => 'Missing required fields']);
 		}
 
 		try {
@@ -41,13 +41,13 @@ class UserController extends TemplateController
 	}
 
 	// delete account
-	public function delete(): string
+	public function deleteUser(): string
 	{
 		$userData = $this->getJsonContents();
 
 		if (!$this->checkData(requiredFields: ['user_id'], data: $userData)) {
 			http_response_code(400);
-			return json_encode(['Missing required fields']);
+			return json_encode(['error' => 'Missing required fields']);
 		}
 
 		try {

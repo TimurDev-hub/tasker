@@ -10,13 +10,13 @@ use Utils\ErrorLogger;
 class TaskContoller extends TemplateController
 {
 	// create task
-	public function post(): string
+	public function createTask(): string
 	{
 		$taskData = $this->getJsonContents();
 
 		if (!$this->checkData(requiredFields: ['user_id', 'task_title', 'task_text'], data: $taskData)) {
 			http_response_code(400);
-			return json_encode(['Missing required fields']);
+			return json_encode(['error' => 'Missing required fields']);
 		}
 
 		try {
@@ -41,13 +41,13 @@ class TaskContoller extends TemplateController
 	}
 
 	// get tasks
-	public function get(): string
+	public function getTasks(): string
 	{
 		$taskData = $this->getJsonContents();
 
 		if (!$this->checkData(requiredFields: ['user_id'], data: $taskData)) {
 			http_response_code(400);
-			return json_encode(['Missing required fields']);
+			return json_encode(['error' => 'Missing required fields']);
 		}
 
 		try {
@@ -71,13 +71,13 @@ class TaskContoller extends TemplateController
 	}
 
 	// delete task
-	public function delete(): string
+	public function deleteTask(): string
 	{
 		$taskData = $this->getJsonContents();
 
 		if (!$this->checkData(requiredFields: ['task_id'], data: $taskData)) {
 			http_response_code(400);
-			return json_encode(['Missing required fields']);
+			return json_encode(['error' => 'Missing required fields']);
 		}
 
 		try {

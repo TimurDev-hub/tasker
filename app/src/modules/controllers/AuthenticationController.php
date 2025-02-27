@@ -10,13 +10,13 @@ use Utils\ErrorLogger;
 class AuthenticationController extends TemplateController
 {
 	// login
-	public function get(): string
+	public function login(): string
 	{
 		$sessionData = $this->getJsonContents();
 
 		if (!$this->checkData(requiredFields: ['user_name', 'user_password'], data: $sessionData)) {
 			http_response_code(400);
-			return json_encode(['Missing required fields']);
+			return json_encode(['error' => 'Missing required fields']);
 		}
 
 		try {
@@ -31,7 +31,7 @@ class AuthenticationController extends TemplateController
 				return json_encode(['error' => 'Invalid credentials']);
 			}
 
-			if (!password_verify($_POST['user_password'], $user['user_password'])) {
+			if (!password_verify($sessionData['user_password'], $user['user_password'])) {
 				http_response_code(401);
 				return json_encode(['error' => 'Invalid credentials']);
 			}
@@ -49,7 +49,7 @@ class AuthenticationController extends TemplateController
 	}
 
 	// logout
-	public function delete(): string
+	public function logout(): string
 	{
 		setcookie('user_id', "", time() - 3600);
 		setcookie('user_name', "", time() - 3600);
