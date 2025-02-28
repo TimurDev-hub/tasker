@@ -6,7 +6,7 @@ use Router\Router;
 
 $uri = $_SERVER['REQUEST_URI'];
 
-if (strpos($uri, '/user') !== false || strpos($uri, '/authentication') !== false || strpos($uri, '/task') !== false) {
+if (strpos($uri, '/api') !== false) {
 	$router = new Router();
 	$router->handleRequest(uri: $uri);
 
