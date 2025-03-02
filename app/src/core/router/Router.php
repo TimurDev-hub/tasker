@@ -56,9 +56,9 @@ class Router
 		];
 	}
 
-	private function getResource(): string|false
+	private function getResource(): ?array
 	{
-		return $this->resourcesMap[$this->resource] ?? false;
+		return $this->resourcesMap[$this->resource] ?? null;
 	}
 
 	private function getController(): string|false
@@ -77,6 +77,8 @@ class Router
 
 	public function handleRequest(string $methodType): void
 	{
+		header("Content-Type: application/json");
+
 		try {
 			$controllerClass = $this->getController();
 
