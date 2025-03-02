@@ -5,7 +5,7 @@ import { setupRegistrationForm, setupLoginForm } from './functions.js';
 const userId = getCookie('user_id');
 
 
-if (userId === null) {
+if (!userId === null) {
 	document.getElementById('header-root').innerHTML = headerNavbar;
 	//document.getElementById('main-root').innerHTML = mainLogin;
 

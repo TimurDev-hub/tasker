@@ -1,6 +1,6 @@
 import { sendData, renderMessage } from "./utils.js";
 
-export function setupRegistrationForm() {
+export function registration() {
 	const registrationForm = document.getElementById('registrationForm');
 	if (registrationForm) {
 		registrationForm.addEventListener('submit', async function(event) {
@@ -16,7 +16,7 @@ export function setupRegistrationForm() {
 
 			const jsonData = JSON.stringify(registrationData);
 
-			const apiAnswer = await sendData(jsonData, '/user', 'POST');
+			const apiAnswer = await sendData(jsonData, '/api/user', 'POST');
 
 			if (apiAnswer.message) renderMessage('message__text--success', apiAnswer.message);
 			if (apiAnswer.error) renderMessage('message__text--error', apiAnswer.error);
@@ -24,7 +24,7 @@ export function setupRegistrationForm() {
 	}
 }
 
-export function setupLoginForm() {
+export function login() {
 	const loginForm = document.getElementById('loginForm');
 	if (loginForm) {
 		loginForm.addEventListener('submit', async function(event) {
@@ -40,7 +40,7 @@ export function setupLoginForm() {
 
 			const jsonData = JSON.stringify(loginData);
 
-			const apiAnswer = await sendData(jsonData, '/authentication', 'POST');
+			const apiAnswer = await sendData(jsonData, '/api/authentication/login', 'POST');
 
 			if (apiAnswer.message) renderMessage('message__text--success', apiAnswer.message);
 			if (apiAnswer.error) renderMessage('message__text--error', apiAnswer.error);
