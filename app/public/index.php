@@ -10,8 +10,8 @@ $uri = $_SERVER['REQUEST_URI'];
 $methodType = $_SERVER['REQUEST_METHOD'];
 
 if (strpos($uri, '/api') !== false && strpos($uri, '/api') === 0) {
-	$router = new Router();
-	$router->handleRequest(uri: $uri, methodType: $methodType);
+	$router = new Router(uri: $uri);
+	$router->handleRequest(methodType: $methodType);
 
 } else {
 	require_once __DIR__ . '../../src/modules/views/index.html';
