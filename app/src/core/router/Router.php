@@ -6,78 +6,46 @@ use Utils\ErrorLogger;
 
 class Router
 {
-	private static string $resource;
-	private static string $item;
+	private string $resource;
+	private ?string $item;
 
-	private static array $controllersMap;
-	private static array $methodsMap;
+	private const CONTROLLER = 'controller';
+	private const METHOD = 'method';
 
-	public function __construct(string $uri)
-	{
-		self::$resource = self::parseUri(uri: $uri)['resource'];
-		self::$item = self::parseUri(uri: $uri)['item'];
-
-		self::$controllersMap = self::getResourcesTable();
-		self::$methodsMap = self::getMethodsMaps();
-	}
-
-	private static function getControllersMaps(): array
-	{
-		return [
-			'authentication' => 'Controllers\\AuthenticationController',
-			'user' => 'Controllers\\UserController',
-			'task' => 'Controllers\\TaskController'
-		];
-	}
-
-	private static function getMethodsMaps(): array
-	{
-		return [
-			'authentication' => [
+	private array $resourcesMap = [
+		'authentication' => [
+			'controller' => 'Controllers\\AuthenticationController',
+			'method' => [
 				'POST' => 'login',
 				'DELETE' => 'logout'
-			],
-			'user' => [
+			]
+		],
+		'user' => [
+			'controller' => 'Controllers\\UserController',
+			'method' => [
 				'POST' => 'registerUser',
 				'DELETE' => 'deleteUser'
-			],
-			'task' => [
+			]
+		],
+		'task' => [
+			'controller' => 'Controllers\\TaskController',
+			'method' => [
 				'POST' => 'createTask',
 				'GET' => 'getTasks',
 				'DELETE' => 'deleteTask'
 			]
-		];
-	}
+		]
+	];
 
-	private static function getResourcesTable(): array
+	public function __construct(string $uri)
 	{
-		return [
-			'authentication' => [
-				'controller' => 'Controllers\\AuthenticationController',
-				'method' => [
-					'POST' => 'login',
-					'DELETE' => 'logout'
-				]
-			],
-			'user' => [
-				'controller' => 'Controllers\\UserController',
-				'method' => [
-					'POST' => 'registerUser',
-					'DELETE' => 'deleteUser'
-				]
-			],
-			'task' => [
-				'controller' => 'Controllers\\TaskController',
-				'method' => [
-					'POST' => 'createTask',
-					'GET' => 'getTasks',
-					'DELETE' => 'deleteTask'
-				]
-			]
-		];
+		$parsedUri = $this->parseUri(uri: $uri);
+
+		$this->resource = $parsedUri['resource'];
+		$this->item = $parsedUri['item'];
 	}
 
-	private static function parseUri(string $uri): array
+	private function parseUri(string $uri): array
 	{
 		list($prefix, $resource, $item) = explode('/', trim($uri, '/'), 3) + [null, null, null];
 
@@ -88,30 +56,39 @@ class Router
 		];
 	}
 
-	private static function getController(): string|false
+	private function getResource(): string|false
 	{
-		return self::$controllersMap[self::$resource] ?? false;
+		return $this->resourcesMap[$this->resource] ?? false;
 	}
 
-	private static function getMethod(string $methodType): string|false
+	private function getController(): string|false
 	{
-		return self::$methodsMap[self::$resource][$methodType] ?? false;
+		$uriResource = $this->getResource();
+		if (!$uriResource) return false;
+		return $uriResource[self::CONTROLLER];
+	}
+
+	private function getMethod(string $methodType): string|false
+	{
+		$uriResource = $this->getResource();
+		if (!$uriResource) return false;
+		return $uriResource[self::METHOD][$methodType] ?? false;
 	}
 
 	public function handleRequest(string $methodType): void
 	{
 		try {
-			$controllerClass = self::getController();
+			$controllerClass = $this->getController();
 
 			if (!$controllerClass) throw new \Exception('Controller not found: ' . $controllerClass);
 
 			$controller = new $controllerClass();
-			$method = self::getMethod(methodType: $methodType);
+			$method = $this->getMethod(methodType: $methodType);
 
 			if (!$method || !method_exists($controller, $method)) throw new \Exception('Method not found: ' . $method);
 
 			http_response_code(200);
-			echo $controller->$method(self::$item);
+			echo $controller->$method($this->item);
 
 		} catch (\Throwable $exc) {
 			ErrorLogger::handleError(exc: $exc);
