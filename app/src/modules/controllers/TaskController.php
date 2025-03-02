@@ -10,7 +10,7 @@ use Utils\ErrorLogger;
 class TaskContoller extends TemplateController
 {
 	// create task
-	public function createTask(): string
+	public function createTask(?string $id = null): string
 	{
 		$taskData = $this->getJsonContents();
 
@@ -41,7 +41,7 @@ class TaskContoller extends TemplateController
 	}
 
 	// get tasks
-	public function getTasks(): string
+	public function getTasks(?string $id = null): string
 	{
 		$taskData = $this->getJsonContents();
 
@@ -71,7 +71,7 @@ class TaskContoller extends TemplateController
 	}
 
 	// delete task
-	public function deleteTask(): string
+	public function deleteTask(?string $id = null): string
 	{
 		$taskData = $this->getJsonContents();
 

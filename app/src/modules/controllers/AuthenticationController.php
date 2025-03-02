@@ -10,7 +10,7 @@ use Utils\ErrorLogger;
 class AuthenticationController extends TemplateController
 {
 	// login
-	public function login(): string
+	public function login(?string $id = null): string
 	{
 		$sessionData = $this->getJsonContents();
 
@@ -49,7 +49,7 @@ class AuthenticationController extends TemplateController
 	}
 
 	// logout
-	public function logout(): string
+	public function logout(?string $id = null): string
 	{
 		setcookie('user_id', "", time() - 3600);
 		setcookie('user_name', "", time() - 3600);
