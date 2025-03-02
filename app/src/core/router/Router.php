@@ -6,12 +6,22 @@ use Utils\ErrorLogger;
 
 class Router
 {
-	private static function parseUri(string $uri): string
+	private static string $resource;
+	private static string $item;
+
+	private static array $controllersMap;
+	private static array $methodsMap;
+
+	public function __construct(string $uri)
 	{
-		return trim(str_replace('/api', '', $uri), '/');
+		self::$resource = self::parseUri(uri: $uri)['resource'];
+		self::$item = self::parseUri(uri: $uri)['item'];
+
+		self::$controllersMap = self::getResourcesTable();
+		self::$methodsMap = self::getMethodsMaps();
 	}
 
-	private static function getControllersMap(): array
+	private static function getControllersMaps(): array
 	{
 		return [
 			'authentication' => 'Controllers\\AuthenticationController',
@@ -20,12 +30,7 @@ class Router
 		];
 	}
 
-	private static function getController(string $uri): string
-	{
-		return self::getControllersMap()[self::parseUri(uri: $uri)];
-	}
-
-	private static function getMethod(): array
+	private static function getMethodsMaps(): array
 	{
 		return [
 			'authentication' => [
@@ -39,26 +44,74 @@ class Router
 			'task' => [
 				'POST' => 'createTask',
 				'GET' => 'getTasks',
-				'DETELE' => 'deleteTask'
+				'DELETE' => 'deleteTask'
 			]
 		];
 	}
 
-	public function handleRequest(string $uri, string $methodType): void
+	private static function getResourcesTable(): array
+	{
+		return [
+			'authentication' => [
+				'controller' => 'Controllers\\AuthenticationController',
+				'method' => [
+					'POST' => 'login',
+					'DELETE' => 'logout'
+				]
+			],
+			'user' => [
+				'controller' => 'Controllers\\UserController',
+				'method' => [
+					'POST' => 'registerUser',
+					'DELETE' => 'deleteUser'
+				]
+			],
+			'task' => [
+				'controller' => 'Controllers\\TaskController',
+				'method' => [
+					'POST' => 'createTask',
+					'GET' => 'getTasks',
+					'DELETE' => 'deleteTask'
+				]
+			]
+		];
+	}
+
+	private static function parseUri(string $uri): array
+	{
+		list($prefix, $resource, $item) = explode('/', trim($uri, '/'), 3) + [null, null, null];
+
+		return [
+			'prefix' => $prefix,
+			'resource' => $resource,
+			'item' => $item
+		];
+	}
+
+	private static function getController(): string|false
+	{
+		return self::$controllersMap[self::$resource] ?? false;
+	}
+
+	private static function getMethod(string $methodType): string|false
+	{
+		return self::$methodsMap[self::$resource][$methodType] ?? false;
+	}
+
+	public function handleRequest(string $methodType): void
 	{
 		try {
-			$resourceName = self::parseUri(uri: $uri);
-			$controllerClass = self::getController(uri: $uri);
+			$controllerClass = self::getController();
 
-			if (!class_exists($controllerClass)) throw new \Exception('Controller not found: ' . $controllerClass);
+			if (!$controllerClass) throw new \Exception('Controller not found: ' . $controllerClass);
 
 			$controller = new $controllerClass();
-			$method = self::getMethod()[$resourceName][$methodType];
+			$method = self::getMethod(methodType: $methodType);
 
-			if (!method_exists($controller, $method)) throw new \Exception('Method not found: ' . $method);
+			if (!$method || !method_exists($controller, $method)) throw new \Exception('Method not found: ' . $method);
 
 			http_response_code(200);
-			echo $controller->$method();
+			echo $controller->$method(self::$item);
 
 		} catch (\Throwable $exc) {
 			ErrorLogger::handleError(exc: $exc);
