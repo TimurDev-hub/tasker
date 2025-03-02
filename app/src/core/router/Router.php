@@ -6,7 +6,7 @@ use Utils\ErrorLogger;
 
 class Router
 {
-	private static function prepareUri(string $uri): string
+	private static function parseUri(string $uri): string
 	{
 		return trim(str_replace('/api', '', $uri), '/');
 	}
@@ -22,7 +22,7 @@ class Router
 
 	private static function getController(string $uri): string
 	{
-		return self::getControllersMap()[self::prepareUri(uri: $uri)];
+		return self::getControllersMap()[self::parseUri(uri: $uri)];
 	}
 
 	private static function getMethod(): array
@@ -47,7 +47,7 @@ class Router
 	public function handleRequest(string $uri, string $methodType): void
 	{
 		try {
-			$resourceName = self::prepareUri(uri: $uri);
+			$resourceName = self::parseUri(uri: $uri);
 			$controllerClass = self::getController(uri: $uri);
 
 			if (!class_exists($controllerClass)) throw new \Exception('Controller not found: ' . $controllerClass);
