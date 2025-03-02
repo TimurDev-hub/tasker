@@ -36,8 +36,10 @@ class AuthenticationController extends TemplateController
 				return json_encode(['error' => 'Invalid credentials']);
 			}
 
-			setcookie('user_id', $user['user_id'], time() + 3600);
-			setcookie('user_name', $user['user_name'], time() + 3600);
+			$cookie_domain = $_SERVER['HTTP_HOST'];
+
+			setcookie('user_id', $user['user_id'], time() + 3600, '/', $cookie_domain);
+			setcookie('user_name', $user['user_name'], time() + 3600, '/', $cookie_domain);
 
 			return json_encode(['message' => 'Login successful!']);
 
