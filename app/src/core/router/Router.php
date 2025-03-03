@@ -6,11 +6,11 @@ use Utils\ErrorLogger;
 
 class Router
 {
-	private string $resource;
-	private ?string $item;
+	private ?string $uri;
+	private ?string $httpMethod;
 
-	private const CONTROLLER = 'controller';
-	private const METHOD = 'method';
+	private ?string $resource = null;
+	private ?string $item = null;
 
 	private array $resourcesMap = [
 		'authentication' => [
@@ -37,20 +37,36 @@ class Router
 		]
 	];
 
-	public function __construct(string $uri)
+	public function __construct(string $uri, string $httpMethod)
 	{
-		$parsedUri = $this->parseUri(uri: $uri);
+		$this->uri = $uri;
+		$this->httpMethod = $httpMethod;
+
+		$parsedUri = $this->parseUri();
 
 		$this->resource = $parsedUri['resource'];
 		$this->item = $parsedUri['item'];
 	}
 
-	private function parseUri(string $uri): array
+	private function prepareUri(): string|false
 	{
-		list($prefix, $resource, $item) = explode('/', trim($uri, '/'), 3) + [null, null, null];
+		return str_replace('/api', '', trim($this->uri, '/')) ?? false;
+	}
+
+	private function parseUri(): array
+	{
+		$preparedUri = $this->prepareUri();
+
+		if (!$preparedUri) {
+			return [
+				'resource' => null,
+				'item' => null
+			];
+		}
+
+		list($resource, $item) = explode('/', $preparedUri, 2) + [null, null];
 
 		return [
-			'prefix' => $prefix,
 			'resource' => $resource,
 			'item' => $item
 		];
@@ -65,17 +81,17 @@ class Router
 	{
 		$uriResource = $this->getResource();
 		if (!$uriResource) return false;
-		return $uriResource[self::CONTROLLER];
+		return $uriResource['controller'];
 	}
 
-	private function getMethod(string $methodType): string|false
+	private function getMethod(): string|false
 	{
 		$uriResource = $this->getResource();
 		if (!$uriResource) return false;
-		return $uriResource[self::METHOD][$methodType] ?? false;
+		return $uriResource['method'][$this->httpMethod] ?? false;
 	}
 
-	public function handleRequest(string $methodType): void
+	public function handleRequest(): void
 	{
 		header("Content-Type: application/json");
 
@@ -85,7 +101,7 @@ class Router
 			if (!$controllerClass) throw new \Exception('Controller not found: ' . $controllerClass);
 
 			$controller = new $controllerClass();
-			$method = $this->getMethod(methodType: $methodType);
+			$method = $this->getMethod();
 
 			if (!$method || !method_exists($controller, $method)) throw new \Exception('Method not found: ' . $method);
 
