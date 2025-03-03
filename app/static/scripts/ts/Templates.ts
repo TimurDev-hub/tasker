@@ -1,4 +1,4 @@
-export class TemplateRender {
+export class Templates {
 	static renderHeaderDefaultNavbar(): string {
 		return `
 			<nav class="header__nav">
