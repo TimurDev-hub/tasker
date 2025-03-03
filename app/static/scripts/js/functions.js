@@ -1,4 +1,5 @@
-import { sendData, renderMessage } from "./utils.js";
+import { sendPostData, sendDeleteData, renderMessage } from "./utils.js";
+//import { updateUi } from "./app.js";
 
 export function registration() {
 	const registrationForm = document.getElementById('registrationForm');
@@ -16,7 +17,7 @@ export function registration() {
 
 			const jsonData = JSON.stringify(registrationData);
 
-			const apiAnswer = await sendData(jsonData, '/api/user', 'POST');
+			const apiAnswer = await sendPostData(jsonData, '/api/user', 'POST');
 
 			if (apiAnswer.message) renderMessage('message__text--success', apiAnswer.message);
 			if (apiAnswer.error) renderMessage('message__text--error', apiAnswer.error);
@@ -40,10 +41,21 @@ export function login() {
 
 			const jsonData = JSON.stringify(loginData);
 
-			const apiAnswer = await sendData(jsonData, '/api/authentication/login', 'POST');
+			const apiAnswer = await sendPostData(jsonData, '/api/authentication');
 
-			if (apiAnswer.message) renderMessage('message__text--success', apiAnswer.message);
-			if (apiAnswer.error) renderMessage('message__text--error', apiAnswer.error);
+			if (apiAnswer.script) updateUi();
+
+			//if (apiAnswer.message) renderMessage('message__text--success', apiAnswer.message);
+			//if (apiAnswer.error) renderMessage('message__text--error', apiAnswer.error);
 		});
 	}
+}
+
+export async function logout() {
+	const apiAnswer = await sendDeleteData('/api/authentication');
+
+	if (apiAnswer.script) updateUi();
+
+	//if (apiAnswer.message) renderMessage('message__text--success', apiAnswer.message);
+	//if (apiAnswer.error) renderMessage('message__text--error', apiAnswer.error);
 }

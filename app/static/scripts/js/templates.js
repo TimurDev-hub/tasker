@@ -3,7 +3,6 @@ import { getCookie } from "./utils.js";
 
 const userName = getCookie('user_name');
 
-
 export const headerNavbar = `
 	<nav class="header__nav">
 		<ul class="header__menu">
@@ -24,7 +23,7 @@ export const headerUserblock = `
 				<p class="header__menu-link header__menu-link--account">${userName}</p>
 			</li>
 			<li class="header__menu-item">
-				<button class="header__menu-link header__menu-link--yellow">Log out</button>
+				<button id="logoutButton" class="header__menu-link header__menu-link--yellow">Log out</button>
 			</li>
 			<li class="header__menu-item">
 				<button class="header__menu-link header__menu-link--yellow">Delete</button>

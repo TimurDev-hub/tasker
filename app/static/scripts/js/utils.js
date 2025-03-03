@@ -3,13 +3,26 @@ export function getCookie(name) {
 	return cookie ? cookie.split('=')[1] : null;
 }
 
-export async function sendData(jsonData, uri, method) {
+export async function sendPostData(jsonData, uri) {
 	const response = await fetch(uri, {
-		method: method,
+		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
 		},
 		body: jsonData
+	});
+
+	const responseData = await response.json();
+
+	return responseData;
+}
+
+export async function sendDeleteData(uri) {
+	const response = await fetch(uri, {
+		method: 'DELETE',
+		headers: {
+			'Content-Type': 'application/json'
+		}
 	});
 
 	const responseData = await response.json();
