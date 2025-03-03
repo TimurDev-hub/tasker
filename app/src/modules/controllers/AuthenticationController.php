@@ -41,7 +41,10 @@ class AuthenticationController extends TemplateController
 			setcookie('user_id', $user['user_id'], time() + 3600, '/', $cookie_domain);
 			setcookie('user_name', $user['user_name'], time() + 3600, '/', $cookie_domain);
 
-			return json_encode(['message' => 'Login successful!']);
+			return json_encode([
+				'message' => 'Login successful!',
+				'script' => true
+			]);
 
 		} catch (\Throwable $exc) {
 			ErrorLogger::handleError(exc: $exc);
@@ -53,10 +56,15 @@ class AuthenticationController extends TemplateController
 	// logout
 	public function logout(?string $id = null): string
 	{
-		setcookie('user_id', "", time() - 3600);
-		setcookie('user_name', "", time() - 3600);
+		$cookie_domain = $_SERVER['HTTP_HOST'];
+
+		setcookie('user_id', "", time() - 3600, '/', $cookie_domain);
+		setcookie('user_name', "", time() - 3600, '/', $cookie_domain);
 
 		http_response_code(200);
-		return json_encode(['message' => 'Logged out successfully!']);
+		return json_encode([
+			'message' => 'Logged out successfully!',
+			'script' => true
+		]);
 	}
 }

@@ -50,7 +50,7 @@ class Router
 
 	private function prepareUri(): string|false
 	{
-		return str_replace('/api', '', trim($this->uri, '/')) ?? false;
+		return trim(str_replace('/api', '', $this->uri), '/') ?? false;
 	}
 
 	private function parseUri(): array
