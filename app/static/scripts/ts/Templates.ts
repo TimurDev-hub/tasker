@@ -85,7 +85,6 @@ export class Templates {
 						<label for="task" class="sections__title">Task</label>
 						<textarea id="task" name="task_text" class="sections__text sections__text--task main__inputs" placeholder="Write what you want!" maxlength="128" required></textarea>
 					</fieldset>
-					<input name="user_id" type="number" value="${userId}" hidden>
 					<button type="submit" class="sections__submit">Submit</button>
 					<span id="formMessageArea"></span>
 				</form>

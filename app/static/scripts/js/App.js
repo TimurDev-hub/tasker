@@ -20,8 +20,6 @@ class App {
                         event.preventDefault();
                         const username = document.getElementById('username').value;
                         const password = document.getElementById('password').value;
-                        if (!username || !password)
-                            throw new Error(`Input data error: ${username} => ${password}`);
                         const userData = {
                             user_name: username,
                             user_password: password
@@ -37,7 +35,6 @@ class App {
             }
         }
         catch (error) {
-            console.error('Registration error', error);
             throw error;
         }
     }
@@ -50,13 +47,11 @@ class App {
                         event.preventDefault();
                         const username = document.getElementById('username').value;
                         const password = document.getElementById('password').value;
-                        if (!username || !password)
-                            throw new Error(`Input data error: ${username} => ${password}`);
-                        const loginData = {
+                        const userData = {
                             user_name: username,
                             user_password: password
                         };
-                        const jsonData = JSON.stringify(loginData);
+                        const jsonData = JSON.stringify(userData);
                         const apiAnswer = yield Http.post('/api/authentication', jsonData);
                         if (apiAnswer.script)
                             App.updateUi();
@@ -67,7 +62,40 @@ class App {
             }
         }
         catch (error) {
-            console.error('Registration error', error);
+            throw error;
+        }
+    }
+    static createTask(userId) {
+        try {
+            const taskCreateForm = document.getElementById('taskCreateForm');
+            if (taskCreateForm) {
+                taskCreateForm.addEventListener('submit', function (event) {
+                    return __awaiter(this, void 0, void 0, function* () {
+                        event.preventDefault();
+                        const title = document.getElementById('title').value;
+                        const text = document.getElementById('task').value;
+                        const id = userId;
+                        const taskData = {
+                            task_title: title,
+                            task_text: text,
+                            user_id: id
+                        };
+                        const jsonData = JSON.stringify(taskData);
+                        const apiAnswer = yield Http.post('/api/task', jsonData);
+                        if (apiAnswer.message)
+                            Utils.renderFormMessage(apiAnswer.message);
+                        if (apiAnswer.error)
+                            Utils.renderFormError(apiAnswer.error);
+                        if (apiAnswer.script) {
+                            setTimeout(() => {
+                                App.updateUi();
+                            }, 2000);
+                        }
+                    });
+                });
+            }
+        }
+        catch (error) {
             throw error;
         }
     }
@@ -112,6 +140,7 @@ class App {
         else {
             headerRoot.innerHTML = Templates.renderClientHeader(userName);
             mainRoot.innerHTML = Templates.renderTaskCreateForm(userId);
+            App.createTask(userId);
             const logoutButton = document.getElementById('logoutButton');
             const deleteAccountButton = document.getElementById('deleteAccountButton');
             if (logoutButton === null || deleteAccountButton === null)
