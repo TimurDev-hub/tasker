@@ -9,7 +9,6 @@ use Utils\ErrorLogger;
 
 class UserController extends TemplateController
 {
-	// create account
 	public function registerUser(?string $id = null): string
 	{
 		$userData = $this->getJsonContents();
@@ -40,7 +39,6 @@ class UserController extends TemplateController
 		}
 	}
 
-	// delete account
 	public function deleteUser(?string $id = null): string
 	{
 		$userData = $this->getJsonContents();
