@@ -60,10 +60,10 @@ body {
   padding-inline: calc(1.2vw + 1.2vh);
 }
 
-.message {
+.formMessageArea {
   display: inline-block;
 }
-.message__text {
+.formMessageArea__text {
   font-family: monospace, sans-serif;
   font-style: normal;
   font-size: calc(0.9vw + 0.9vh);
@@ -74,10 +74,10 @@ body {
   border-radius: calc(0.16vw + 0.16vh);
   background-color: rgb(255, 255, 255);
 }
-.message__text--success {
+.formMessageArea__text--success {
   color: rgb(0, 235, 0);
 }
-.message__text--error {
+.formMessageArea__text--error {
   color: rgb(255, 10, 10);
 }
 

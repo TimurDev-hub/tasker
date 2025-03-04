@@ -6,7 +6,7 @@
 @use "../_resources/tokens/colors" as color;
 @use "../_resources/utils/functions" as func;
 
-.message {
+.formMessageArea {
 	display: inline-block;
 
 	&__text {
