@@ -1,5 +1,5 @@
 export class Http {
-	static async methodPOST(uri: string, jsonData: string): Promise<any> {
+	static async post(uri: string, jsonData: string): Promise<any> {
 		try {
 			const response = await fetch(uri, {
 				method: 'POST',
@@ -13,14 +13,14 @@ export class Http {
 
 			const responseData = await response.json();
 			return responseData;
-		
+
 		} catch (error) {
 			console.error('Error sending POST data:', error);
 			throw error;
 		}
 	}
 
-	static async methodDELETE(uri: string): Promise<any> {
+	static async delete(uri: string): Promise<any> {
 		try {
 			const response = await fetch(uri, {
 				method: 'DELETE',

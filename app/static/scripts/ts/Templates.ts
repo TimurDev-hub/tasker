@@ -1,5 +1,5 @@
 export class Templates {
-	static renderHeaderDefaultNavbar(): string {
+	static renderDefaultHeader(): string {
 		return `
 			<nav class="header__nav">
 				<ul class="header__menu">
@@ -14,7 +14,7 @@ export class Templates {
 		`;
 	}
 
-	static renderHeaderClientNavbar(username: string): string {
+	static renderClientHeader(username: string): string {
 		return `
 			<nav class="header__nav">
 				<ul class="header__menu">

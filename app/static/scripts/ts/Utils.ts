@@ -6,8 +6,13 @@ export class Utils {
 		return cookie ? cookie.split('=')[1] : null;
 	}
 
-	static renderFormMessage(type: string, message: string): void {
+	static renderFormMessage(message: string): void {
 		const messageArea = document.getElementById('formMessageArea');
-		if (messageArea) messageArea.innerHTML = `<p class="message__text ${type}">${message}</p>`;
+		if (messageArea) messageArea.innerHTML = `<p class="message__text message__text--success">${message}</p>`;
+	}
+
+	static renderFormError(message: string): void {
+		const messageArea = document.getElementById('formMessageArea');
+		if (messageArea) messageArea.innerHTML = `<p class="message__text message__text--error">${message}</p>`;
 	}
 }
