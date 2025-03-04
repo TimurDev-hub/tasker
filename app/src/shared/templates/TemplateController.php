@@ -13,7 +13,7 @@ class TemplateController
 	protected function checkData(array $requiredFields, array $data): bool
 	{
 		foreach ($requiredFields as $field) {
-			if (!isset($data[$field]) || empty($data[$field])) return false;
+			if (empty(trim($data[$field])) || !isset($data[$field])) return false;
 		}
 
 		return true;
