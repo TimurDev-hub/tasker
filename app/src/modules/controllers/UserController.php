@@ -18,6 +18,11 @@ class UserController extends TemplateController
 			return json_encode(['error' => 'Missing required fields']);
 		}
 
+		if (!$this->checkDataSize(data: $userData, min: 3, max: 16)) {
+			http_response_code(400);
+			return json_encode(['error' => 'Uncorrect data size']);
+		}
+
 		try {
 			$db = new Database();
 			$pdo = $db->returnPdo();

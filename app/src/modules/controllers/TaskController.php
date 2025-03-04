@@ -7,7 +7,7 @@ use Database\Database;
 use Models\TaskModel;
 use Utils\ErrorLogger;
 
-class TaskContoller extends TemplateController
+class TaskController extends TemplateController
 {
 	public function createTask(?string $id = null): string
 	{
@@ -16,6 +16,11 @@ class TaskContoller extends TemplateController
 		if (!$this->checkData(requiredFields: ['user_id', 'task_title', 'task_text'], data: $taskData)) {
 			http_response_code(400);
 			return json_encode(['error' => 'Missing required fields']);
+		}
+
+		if (!$this->checkDataSize(data: [$taskData['task_title'], $taskData['task_text']], min: 4, max: 128)) {
+			http_response_code(400);
+			return json_encode(['error' => 'Uncorrect data size']);
 		}
 
 		try {
@@ -30,7 +35,10 @@ class TaskContoller extends TemplateController
 			}
 
 			http_response_code(201);
-			return json_encode(['message' => 'Created successfully!']);
+			return json_encode([
+				'message' => 'Created successfully!',
+				'script' => true
+			]);
 
 		} catch (\Throwable $exc) {
 			ErrorLogger::handleError($exc);
