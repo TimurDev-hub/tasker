@@ -72,9 +72,9 @@ class App {
 		if (apiAnswer.script) App.updateUi();
 	}
 
-	static async deleteAccount(userId: string) {
-		const apiAnswer = await Http.delete(`/api/user/${userId}`)
-		if (apiAnswer.script !== false) App.updateUi();
+	static async deleteAccount(id: string|number) {
+		const apiAnswer = await Http.delete(`/api/user/${id}`)
+		if (apiAnswer.script) App.updateUi();
 	}
 
 	static updateUi() {

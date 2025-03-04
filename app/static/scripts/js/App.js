@@ -78,10 +78,10 @@ class App {
                 App.updateUi();
         });
     }
-    static deleteAccount(userId) {
+    static deleteAccount(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const apiAnswer = yield Http.delete(`/api/user/${userId}`);
-            if (apiAnswer.script !== false)
+            const apiAnswer = yield Http.delete(`/api/user/${id}`);
+            if (apiAnswer.script)
                 App.updateUi();
         });
     }
