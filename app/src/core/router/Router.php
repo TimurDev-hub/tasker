@@ -39,32 +39,34 @@ class Router
 
 	public function __construct(string $uri, string $httpMethod)
 	{
-		$this->uri = $uri;
-		$this->httpMethod = $httpMethod;
+		try {
+			$this->uri = $uri;
+			$this->httpMethod = $httpMethod;
 
-		$parsedUri = $this->parseUri();
+			$parsedUri = $this->parseUri();
 
-		$this->resource = $parsedUri['resource'];
-		$this->item = $parsedUri['item'];
+			$this->resource = $parsedUri['resource'];
+			$this->item = $parsedUri['item'];
+
+			if (!array_key_exists(key: $this->resource, array: $this->resourcesMap)) {
+				throw new \InvalidArgumentException('Resource not found: ' . $this->resource);
+			}
+
+		} catch (\Throwable $exc) {
+			ErrorLogger::handleError(exc: $exc);
+			http_response_code(404);
+			throw new \Error();
+		}
 	}
 
-	private function prepareUri(): string|false
+	private function prepareUri(): string
 	{
-		return trim(str_replace('/api', '', $this->uri), '/') ?? false;
+		return trim(str_replace(search: '/api', replace: '', subject: $this->uri), '/');
 	}
 
 	private function parseUri(): array
 	{
-		$preparedUri = $this->prepareUri();
-
-		if (!$preparedUri) {
-			return [
-				'resource' => null,
-				'item' => null
-			];
-		}
-
-		list($resource, $item) = explode('/', $preparedUri, 2) + [null, null];
+		list($resource, $item) = explode(separator: '/', string: $this->prepareUri(), limit: 2) + [null, null];
 
 		return [
 			'resource' => $resource,
@@ -111,7 +113,7 @@ class Router
 		} catch (\Throwable $exc) {
 			ErrorLogger::handleError(exc: $exc);
 			http_response_code(404);
-			echo json_encode(['error' => $exc->getMessage()]);
+			throw new \Error();
 		}
 	}
 }
