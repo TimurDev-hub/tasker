@@ -72,6 +72,11 @@ class App {
 		if (apiAnswer.script) App.updateUi();
 	}
 
+	static async deleteAccount(userId: string) {
+		const apiAnswer = await Http.delete(`/api/user/${userId}`)
+		if (apiAnswer.script !== false) App.updateUi();
+	}
+
 	static updateUi() {
 		let userId = Utils.getCookieValue('user_id');
 		let userName = Utils.getCookieValue('user_name');
@@ -113,6 +118,10 @@ class App {
 			logoutButton.addEventListener('click', function() {
 				App.logout();
 			});
+
+			deleteAccountButton.addEventListener('click', function() {
+				App.deleteAccount(userId);
+			})
 		}
 	}
 }

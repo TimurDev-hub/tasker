@@ -78,6 +78,13 @@ class App {
                 App.updateUi();
         });
     }
+    static deleteAccount(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const apiAnswer = yield Http.delete(`/api/user/${userId}`);
+            if (apiAnswer.script !== false)
+                App.updateUi();
+        });
+    }
     static updateUi() {
         let userId = Utils.getCookieValue('user_id');
         let userName = Utils.getCookieValue('user_name');
@@ -111,6 +118,9 @@ class App {
                 return;
             logoutButton.addEventListener('click', function () {
                 App.logout();
+            });
+            deleteAccountButton.addEventListener('click', function () {
+                App.deleteAccount(userId);
             });
         }
     }

@@ -8,6 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 export class Http {
+    static get(uri) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield fetch(uri, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const responseData = yield response.json();
+            return responseData;
+        });
+    }
     static post(uri, jsonData) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield fetch(uri, {
