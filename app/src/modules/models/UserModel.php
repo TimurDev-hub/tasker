@@ -8,9 +8,9 @@ use Utils\ErrorLogger;
 class UserModel extends TemplateModel
 {
 	private \PDO $pdo;
-	private array $userData;
+	private ?array $userData;
 
-	public function __construct(\PDO $pdo, array $userData)
+	public function __construct(\PDO $pdo, ?array $userData = null)
 	{
 		$this->pdo = $pdo;
 		$this->userData = $userData;
@@ -67,21 +67,18 @@ class UserModel extends TemplateModel
 		}
 	}
 
-	public function deleteAccount(): bool
+	public function deleteAccount(int $userId): bool
 	{
-		if (!isset($this->userData['user_id'])) return false;
-
-		if (!$this->prepareData(data: $this->userData)) return false;
-		if (!$this->validateData(data: $this->userData)) return false;
+		if (!isset($userId) || !is_integer($userId)) return false;
 
 		try {
 			$this->pdo->beginTransaction();
 
 			$stmt = $this->pdo->prepare("DELETE FROM tasks WHERE user_id = ?");
-			if (!$stmt->execute([$this->userData['user_id']])) throw new \Exception('Failed to delete tasks from tasks table');
+			if (!$stmt->execute([$userId])) throw new \Exception('Failed to delete tasks from tasks table');
 
 			$stmt = $this->pdo->prepare("DELETE FROM users WHERE user_id = ?");
-			if (!$stmt->execute([$this->userData['user_id']])) throw new \Exception('Failed to delete user from users table');
+			if (!$stmt->execute([$userId])) throw new \Exception('Failed to delete user from users table');
 
 			$this->pdo->commit();
 			return true;

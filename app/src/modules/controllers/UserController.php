@@ -39,36 +39,33 @@ class UserController extends TemplateController
 		}
 	}
 
-	public function deleteUser(?string $id = null): string
+	public function deleteUser(?int $id): string
 	{
-		$userData = $this->getJsonContents();
-
-		if (!$this->checkData(requiredFields: ['user_id'], data: $userData)) {
-			http_response_code(400);
-			return json_encode(['error' => 'Missing required fields']);
-		}
+		if (!$id) return json_encode(['script' => false]);
 
 		try {
 			$db = new Database();
 			$pdo = $db->returnPdo();
 
-			$userModel = new UserModel(pdo: $pdo, userData: $userData);
+			$userModel = new UserModel(pdo: $pdo);
 
-			if (!$userModel->deleteAccount()) {
+			if (!$userModel->deleteAccount(userId: $id)) {
 				http_response_code(400);
 				return json_encode(['error' => 'Failed to delete account']);
 			}
 
-			setcookie('user_id', "", time() - 3600);
-			setcookie('user_name', "", time() - 3600);
+			$cookie_domain = $_SERVER['HTTP_HOST'];
+
+			setcookie('user_id', "", time() - 3600, '/', $cookie_domain);
+			setcookie('user_name', "", time() - 3600, '/', $cookie_domain);
 
 			http_response_code(200);
-			return json_encode(['message' => 'Deleted successfully!']);
+			return json_encode(['script' => true]);
 
 		} catch (\Throwable $exc) {
 			ErrorLogger::handleError(exc: $exc);
 			http_response_code(500);
-			return json_encode(['error' => 'Internal Server Error']);
+			return json_encode(['script' => false]);
 		}
 	}
 }

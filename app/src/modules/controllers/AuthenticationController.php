@@ -32,7 +32,7 @@ class AuthenticationController extends TemplateController
 
 			if (!password_verify($sessionData['user_password'], $user['user_password'])) {
 				http_response_code(401);
-				return json_encode(['error' => 'Invalid credentials']);
+				return json_encode(['error' => 'Invalid username or password']);
 			}
 
 			$cookie_domain = $_SERVER['HTTP_HOST'];
@@ -40,10 +40,7 @@ class AuthenticationController extends TemplateController
 			setcookie('user_id', $user['user_id'], time() + 3600, '/', $cookie_domain);
 			setcookie('user_name', $user['user_name'], time() + 3600, '/', $cookie_domain);
 
-			return json_encode([
-				'message' => 'Login successful!',
-				'script' => true
-			]);
+			return json_encode(['script' => true]);
 
 		} catch (\Throwable $exc) {
 			ErrorLogger::handleError(exc: $exc);
@@ -60,9 +57,6 @@ class AuthenticationController extends TemplateController
 		setcookie('user_name', "", time() - 3600, '/', $cookie_domain);
 
 		http_response_code(200);
-		return json_encode([
-			'message' => 'Logged out successfully!',
-			'script' => true
-		]);
+		return json_encode(['script' => true]);
 	}
 }
