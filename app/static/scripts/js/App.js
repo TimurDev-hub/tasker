@@ -7,9 +7,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Http } from "./Http";
-import { Templates } from "./Templates";
-import { Utils } from "./Utils";
+import { Http } from "./Http.js";
+import { Templates } from "./Templates.js";
+import { Utils } from "./Utils.js";
 class App {
     static registration() {
         try {
@@ -30,7 +30,7 @@ class App {
                         const apiAnswer = yield Http.post('/api/user', jsonData);
                         if (apiAnswer.message)
                             Utils.renderFormMessage(apiAnswer.message);
-                        else if (apiAnswer.error)
+                        if (apiAnswer.error)
                             Utils.renderFormError(apiAnswer.error);
                     });
                 });
@@ -85,28 +85,26 @@ class App {
         const mainRoot = document.getElementById('main-root');
         if (headerRoot === null || mainRoot === null)
             return;
-        if (userId === null) {
+        if (userId === null || userName === null) {
             headerRoot.innerHTML = Templates.renderDefaultHeader();
             mainRoot.innerHTML = Templates.renderLoginForm();
             App.login();
-            const loginButton = document.getElementById('registration-link');
+            const loginButton = document.getElementById('loginButton');
             const registrationButton = document.getElementById('registrationButton');
             if (loginButton === null || registrationButton === null)
                 return;
             loginButton.addEventListener('click', function () {
-                mainRoot.innerHTML = Templates.renderRegistrationForm();
-                App.registration();
-            });
-            registrationButton.addEventListener('click', function () {
                 mainRoot.innerHTML = Templates.renderLoginForm();
                 App.login();
             });
+            registrationButton.addEventListener('click', function () {
+                mainRoot.innerHTML = Templates.renderRegistrationForm();
+                App.registration();
+            });
         }
         else {
-            if (userName === null)
-                return;
             headerRoot.innerHTML = Templates.renderClientHeader(userName);
-            mainRoot.innerHTML = Templates.renderTaskCreateForm('null');
+            mainRoot.innerHTML = Templates.renderTaskCreateForm(userId);
             const logoutButton = document.getElementById('logoutButton');
             const deleteAccountButton = document.getElementById('deleteAccountButton');
             if (logoutButton === null || deleteAccountButton === null)
@@ -117,4 +115,5 @@ class App {
         }
     }
 }
+App.updateUi();
 //# sourceMappingURL=App.js.map

@@ -6,10 +6,10 @@
 @use "../_resources/tokens/colors" as color;
 @use "../_resources/utils/functions" as func;
 
-.formMessageArea {
+#formMessageArea {
 	display: inline-block;
 
-	&__text {
+	.message__text {
 		@include font.fontConfigExtended(monospace, normal, var.$textSizeLow, 500);
 		display: inline-block;
 		margin-top: func.viewportSum(.3);

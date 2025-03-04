@@ -10,43 +10,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 export class Http {
     static post(uri, jsonData) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const response = yield fetch(uri, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: jsonData
-                });
-                if (!response.ok)
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                const responseData = yield response.json();
-                return responseData;
-            }
-            catch (error) {
-                console.error('Error sending POST data:', error);
-                throw error;
-            }
+            const response = yield fetch(uri, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: jsonData
+            });
+            const responseData = yield response.json();
+            return responseData;
         });
     }
     static delete(uri) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const response = yield fetch(uri, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                if (!response.ok)
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                const responseData = yield response.json();
-                return responseData;
-            }
-            catch (error) {
-                console.error('Error sending DELETE data:', error);
-                throw error;
-            }
+            const response = yield fetch(uri, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const responseData = yield response.json();
+            return responseData;
         });
     }
 }

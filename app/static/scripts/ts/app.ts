@@ -25,7 +25,7 @@ class App {
 					const apiAnswer = await Http.post('/api/user', jsonData);
 
 					if (apiAnswer.message) Utils.renderFormMessage(apiAnswer.message);
-					else if (apiAnswer.error) Utils.renderFormError(apiAnswer.error);
+					if (apiAnswer.error) Utils.renderFormError(apiAnswer.error);
 				});
 			}
 
@@ -67,7 +67,7 @@ class App {
 		}
 	}
 
-	static async logout(): Promise<any> {
+	static async logout() {
 		const apiAnswer = await Http.delete('/api/authentication');
 		if (apiAnswer.script) App.updateUi();
 	}
@@ -81,31 +81,29 @@ class App {
 
 		if (headerRoot === null || mainRoot === null) return;
 	
-		if (userId === null) {
+		if (userId === null || userName === null) {
 			headerRoot.innerHTML = Templates.renderDefaultHeader();
 			mainRoot.innerHTML = Templates.renderLoginForm();
 			App.login();
 
-			const loginButton = document.getElementById('registration-link');
+			const loginButton = document.getElementById('loginButton');
 			const registrationButton = document.getElementById('registrationButton');
 
 			if (loginButton === null || registrationButton === null) return;
 	
 			loginButton.addEventListener('click', function() {
-				mainRoot.innerHTML = Templates.renderRegistrationForm();
-				App.registration();
-			});
-	
-			registrationButton.addEventListener('click', function() {
 				mainRoot.innerHTML = Templates.renderLoginForm();
 				App.login();
 			});
+	
+			registrationButton.addEventListener('click', function() {
+				mainRoot.innerHTML = Templates.renderRegistrationForm();
+				App.registration();
+			});
 
 		} else {
-			if (userName === null) return;
-
 			headerRoot.innerHTML = Templates.renderClientHeader(userName);
-			mainRoot.innerHTML = Templates.renderTaskCreateForm('null');
+			mainRoot.innerHTML = Templates.renderTaskCreateForm(userId);
 
 			const logoutButton = document.getElementById('logoutButton');
 			const deleteAccountButton = document.getElementById('deleteAccountButton');
@@ -118,3 +116,5 @@ class App {
 		}
 	}
 }
+
+App.updateUi();
