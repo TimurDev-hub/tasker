@@ -18,4 +18,13 @@ class TemplateController
 
 		return true;
 	}
+
+	protected function checkDataSize(array $data, int $min, int $max): bool
+	{
+		foreach ($data as $item) {
+			if (strlen($item) < $min || strlen($item) > $max) return false;
+		}
+
+		return true;
+	}
 }
