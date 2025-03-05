@@ -31,7 +31,7 @@ class UserModel extends TemplateModel
 
 	public function getUserByName(): array|false
 	{
-		if (!isset($this->userData['user_name'])) return false;
+		if (!$this->userData || !isset($this->userData['user_name'])) return false;
 
 		if (!$this->prepareData(data: $this->userData)) return false;
 		if (!$this->validateData(data: $this->userData)) return false;
@@ -49,7 +49,7 @@ class UserModel extends TemplateModel
 
 	public function createAccount(): bool
 	{
-		if (!isset($this->userData['user_name'], $this->userData['user_password'])) return false;
+		if (!$this->userData || !isset($this->userData['user_name'], $this->userData['user_password'])) return false;
 
 		if (!$this->prepareData(data: $this->userData)) return false;
 		if (!$this->validateData(data: $this->userData)) return false;
@@ -69,7 +69,8 @@ class UserModel extends TemplateModel
 
 	public function deleteAccount(int $userId): bool
 	{
-		if (!isset($userId) || !is_integer($userId)) return false;
+		if (!$userId) return false;
+		if ($userId && !is_integer($userId)) return false;
 
 		try {
 			$this->pdo->beginTransaction();
