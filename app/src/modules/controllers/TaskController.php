@@ -9,7 +9,7 @@ use Utils\ErrorLogger;
 
 class TaskController extends TemplateController
 {
-	public function createTask(?string $id = null): string
+	public function createTask(mixed $empty = null): string
 	{
 		$taskData = $this->getJsonContents();
 
@@ -47,28 +47,26 @@ class TaskController extends TemplateController
 		}
 	}
 
-	public function getTasks(?string $id = null): string
+	public function getTasks(int $userId): string
 	{
-		$taskData = $this->getJsonContents();
-
-		if (!$this->checkData(requiredFields: ['user_id'], data: $taskData)) {
-			http_response_code(400);
-			return json_encode(['error' => 'Missing required fields']);
-		}
+		if ($userId && !is_integer($userId)) return json_encode(['script' => false]);
 
 		try {
 			$db = new Database();
 			$pdo = $db->returnPdo();
 
-			$taskModel = new TaskModel(pdo: $pdo, taskData: $taskData);
-			$tasks = $taskModel->getTasks();
+			$taskModel = new TaskModel(pdo: $pdo);
+			$tasks = $taskModel->getTasks(userId: $userId);
 
 			if ($tasks === false) {
 				http_response_code(500);
 				return json_encode(['error' => 'Internal Server Error']);
 			}
 
-			return json_encode(['tasks' => $tasks]);
+			return json_encode([
+				'tasks' => $tasks,
+				'script' => true
+			]);
 
 		} catch (\Throwable $exc) {
 			ErrorLogger::handleError(exc: $exc);
@@ -76,7 +74,7 @@ class TaskController extends TemplateController
 		}
 	}
 
-	public function deleteTask(?string $id = null): string
+	public function deleteTask(int $taskId): string
 	{
 		$taskData = $this->getJsonContents();
 

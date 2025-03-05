@@ -9,7 +9,7 @@ use Utils\ErrorLogger;
 
 class UserController extends TemplateController
 {
-	public function registerUser(?string $id = null): string
+	public function registerUser(mixed $empty = null): string
 	{
 		$userData = $this->getJsonContents();
 
@@ -44,9 +44,9 @@ class UserController extends TemplateController
 		}
 	}
 
-	public function deleteUser(?int $id): string
+	public function deleteUser(int $userId): string
 	{
-		if (!$id) return json_encode(['script' => false]);
+		if ($userId && !is_integer($userId)) return json_encode(['script' => false]);
 
 		try {
 			$db = new Database();
@@ -54,7 +54,7 @@ class UserController extends TemplateController
 
 			$userModel = new UserModel(pdo: $pdo);
 
-			if (!$userModel->deleteAccount(userId: $id)) {
+			if (!$userModel->deleteAccount(userId: $userId)) {
 				http_response_code(400);
 				return json_encode(['error' => 'Failed to delete account']);
 			}
