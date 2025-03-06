@@ -68,18 +68,18 @@ export class Templates {
 			</section>
 		`;
     }
-    static renderTaskCreateForm(userId) {
+    static renderTaskCreateForm() {
         return `
 			<section class="sections">
 				<legend class="sections__header">Add new task</legend>
 				<form id="taskCreateForm" class="sections__form">
 					<fieldset class="sections__field">
 						<label for="title" class="sections__title">Title</label>
-						<input id="title" name="task_title" type="text" class="sections__text main__inputs" placeholder="Your task\`s title is..." maxlength="32" required>
+						<input id="title" name="task_title" type="text" class="sections__text main__inputs" placeholder="Your task\`s title is..." maxlength="16" required>
 					</fieldset>
 					<fieldset class="sections__field">
 						<label for="task" class="sections__title">Task</label>
-						<textarea id="task" name="task_text" class="sections__text sections__text--task main__inputs" placeholder="Write what you want!" maxlength="128" required></textarea>
+						<textarea id="task" name="task_text" class="sections__text sections__text--task main__inputs" placeholder="Write what you want!" maxlength="64" required></textarea>
 					</fieldset>
 					<button type="submit" class="sections__submit">Submit</button>
 					<span id="formMessageArea"></span>
@@ -97,7 +97,7 @@ export class Templates {
 			</section>
 		`;
     }
-    static renderTask(taskTitle, taskText, userId) {
+    static renderTask(taskTitle, taskText, taskId) {
         return `
 			<div class="sections__task">
 				<form class="sections__form sections__form--task">
@@ -109,7 +109,7 @@ export class Templates {
 						<label class="sections__title">Task</label>
 						<textarea name="task_text" class="sections__text sections__text--task main__inputs" disabled>${taskText}</textarea>
 					</fieldset>
-					<input name="task_id" type="number" value="${userId}" hidden>
+					<input name="task_id" type="number" value="${taskId}" hidden>
 					<button type="submit" class="sections__submit sections__submit--delete">Delete</button>
 				</form>
 			</div>
