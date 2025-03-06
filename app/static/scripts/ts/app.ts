@@ -2,6 +2,16 @@ import { Http } from "./Http";
 import { Templates } from "./Templates";
 import { Utils } from "./Utils";
 
+interface Task {
+	task_id: number;
+	task_title: string;
+	task_text: string;
+}
+
+interface ApiResponse {
+	tasks: Task[];
+}
+
 class App {
 	static registration(): void {
 		try {
@@ -51,7 +61,7 @@ class App {
 					const jsonData = JSON.stringify(userData);
 					const apiAnswer = await Http.post('/api/authentication', jsonData);
 
-					if (apiAnswer.script) App.updateUi();
+					if (apiAnswer.script !== false) App.updateUi();
 					if (apiAnswer.error) Utils.renderFormError(apiAnswer.error);
 				});
 			}
@@ -85,7 +95,7 @@ class App {
 					if (apiAnswer.message) Utils.renderFormMessage(apiAnswer.message);
 					if (apiAnswer.error) Utils.renderFormError(apiAnswer.error);
 
-					if (apiAnswer.script) {
+					if (apiAnswer.script !== false) {
 						setTimeout(() => {
 							App.updateUi();
 						}, 2000);
@@ -98,14 +108,30 @@ class App {
 		}
 	}
 
+	static async getTasks(userId: string|number) {
+		const taskArea = document.getElementById('tasks-root');
+		const apiAnswer = await Http.get(`/api/task/${userId}`) as ApiResponse;
+
+		if (taskArea && apiAnswer.tasks) {
+			taskArea.innerHTML = '';
+
+			apiAnswer.tasks.forEach(task => {
+				const taskHtml = Templates.renderTask(task.task_title, task.task_text, task.task_id);
+				taskArea.innerHTML += taskHtml;
+			});
+		}
+
+		return apiAnswer.tasks;
+	}
+
 	static async logout() {
 		const apiAnswer = await Http.delete('/api/authentication');
-		if (apiAnswer.script) App.updateUi();
+		if (apiAnswer.script !== false) App.updateUi();
 	}
 
 	static async deleteAccount(id: string|number) {
 		const apiAnswer = await Http.delete(`/api/user/${id}`)
-		if (apiAnswer.script) App.updateUi();
+		if (apiAnswer.script !== false) App.updateUi();
 	}
 
 	static updateUi() {
@@ -139,8 +165,14 @@ class App {
 
 		} else {
 			headerRoot.innerHTML = Templates.renderClientHeader(userName);
-			mainRoot.innerHTML = Templates.renderTaskCreateForm(userId);
+			mainRoot.innerHTML = Templates.renderTaskCreateForm() + Templates.renderTaskArea();
 			App.createTask(userId);
+			App.getTasks(userId).then(tasks => {
+				if (tasks.length < 1) {
+					const taskArea = document.getElementById('tasks-root');
+					if (taskArea) taskArea.innerHTML = Templates.renderTask('Example title', 'Example tetx', null);
+				}
+			});
 
 			const logoutButton = document.getElementById('logoutButton');
 			const deleteAccountButton = document.getElementById('deleteAccountButton');

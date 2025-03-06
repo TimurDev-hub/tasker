@@ -99,6 +99,20 @@ class App {
             throw error;
         }
     }
+    static getTasks(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const taskArea = document.getElementById('tasks-root');
+            const apiAnswer = yield Http.get(`/api/task/${userId}`);
+            if (taskArea && apiAnswer.tasks) {
+                taskArea.innerHTML = '';
+                apiAnswer.tasks.forEach(task => {
+                    const taskHtml = Templates.renderTask(task.task_title, task.task_text, task.task_id);
+                    taskArea.innerHTML += taskHtml;
+                });
+            }
+            return apiAnswer.tasks;
+        });
+    }
     static logout() {
         return __awaiter(this, void 0, void 0, function* () {
             const apiAnswer = yield Http.delete('/api/authentication');
@@ -139,8 +153,15 @@ class App {
         }
         else {
             headerRoot.innerHTML = Templates.renderClientHeader(userName);
-            mainRoot.innerHTML = Templates.renderTaskCreateForm(userId);
+            mainRoot.innerHTML = Templates.renderTaskCreateForm() + Templates.renderTaskArea();
             App.createTask(userId);
+            App.getTasks(userId).then(tasks => {
+                if (tasks.length < 1) {
+                    const taskArea = document.getElementById('tasks-root');
+                    if (taskArea)
+                        taskArea.innerHTML = Templates.renderTask('Example title', 'Example tetx', null);
+                }
+            });
             const logoutButton = document.getElementById('logoutButton');
             const deleteAccountButton = document.getElementById('deleteAccountButton');
             if (logoutButton === null || deleteAccountButton === null)

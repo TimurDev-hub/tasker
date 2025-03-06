@@ -103,7 +103,7 @@ export class Templates {
 		`;
 	}
 
-	static renderTask(taskTitle: string, taskText: string, taskId: number): string {
+	static renderTask(taskTitle: string, taskText: string, taskId: number|null): string {
 		return `
 			<div class="sections__task">
 				<form class="sections__form sections__form--task">
