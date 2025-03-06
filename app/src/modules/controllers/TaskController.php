@@ -76,26 +76,24 @@ class TaskController extends TemplateController
 
 	public function deleteTask(int $taskId): string
 	{
-		$taskData = $this->getJsonContents();
-
-		if (!$this->checkData(requiredFields: ['task_id'], data: $taskData)) {
-			http_response_code(400);
-			return json_encode(['error' => 'Missing required fields']);
-		}
+		if ($taskId && !is_integer($taskId)) return json_encode(['script' => false]);
 
 		try {
 			$db = new Database();
 			$pdo = $db->returnPdo();
 
-			$taskModel = new TaskModel(pdo: $pdo, taskData: $taskData);
+			$taskModel = new TaskModel(pdo: $pdo);
 
-			if (!$taskModel->deleteTask()) {
+			if (!$taskModel->deleteTask(taskId: $taskId)) {
 				http_response_code(400);
 				return json_encode(['error' => 'Failed to delete task']);
 			}
 
 			http_response_code(200);
-			return json_encode(['message' => 'Deleted successfully!']);
+			return json_encode([
+				'message' => 'Deleted successfully!',
+				'script' => true
+			]);
 
 		} catch (\Throwable $exc) {
 			ErrorLogger::handleError(exc: $exc);

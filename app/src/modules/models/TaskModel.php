@@ -49,16 +49,14 @@ class TaskModel extends TemplateModel
 		}
 	}
 
-	public function deleteTask(): bool
+	public function deleteTask(int $taskId): bool
 	{
-		if (!$this->taskData || !isset($this->taskData['task_id'])) return false;
-	
-		if (!$this->prepareData(data: $this->taskData)) return false;
-		if (!$this->validateData(data: $this->taskData)) return false;
+		if (!$taskId) return false;
+		if ($taskId && !is_integer($taskId)) return false;
 
 		try {
 			$stmt = $this->pdo->prepare("DELETE FROM tasks WHERE task_id = ?");
-			return $stmt->execute([$this->taskData['task_id']]);
+			return $stmt->execute([$taskId]);
 
 		} catch (\Throwable $exc) {
 			ErrorLogger::handleError($exc);
