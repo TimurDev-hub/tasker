@@ -53,7 +53,7 @@ class App {
                         };
                         const jsonData = JSON.stringify(userData);
                         const apiAnswer = yield Http.post('/api/authentication', jsonData);
-                        if (apiAnswer.script)
+                        if (apiAnswer.script !== false)
                             App.updateUi();
                         if (apiAnswer.error)
                             Utils.renderFormError(apiAnswer.error);
@@ -86,7 +86,7 @@ class App {
                             Utils.renderFormMessage(apiAnswer.message);
                         if (apiAnswer.error)
                             Utils.renderFormError(apiAnswer.error);
-                        if (apiAnswer.script) {
+                        if (apiAnswer.script !== false) {
                             setTimeout(() => {
                                 App.updateUi();
                             }, 2000);
@@ -113,17 +113,38 @@ class App {
             return apiAnswer.tasks;
         });
     }
+    static deleteTask() {
+        const deleteButton = document.querySelectorAll('sections__submit--delete');
+        deleteButton.forEach(button => {
+            button.addEventListener('click', (event) => __awaiter(this, void 0, void 0, function* () {
+                event.preventDefault();
+                const form = button.closest('sections__form--task');
+                const taskIdInput = form === null || form === void 0 ? void 0 : form.querySelector('input[name="task_id"]');
+                const taskId = taskIdInput.value;
+                const apiAnswer = yield Http.delete(`/api/task/${taskId}`);
+                if (apiAnswer.message)
+                    Utils.renderFormMessage(apiAnswer.message);
+                if (apiAnswer.error)
+                    Utils.renderFormError(apiAnswer.error);
+                if (apiAnswer.script !== false) {
+                    setTimeout(() => {
+                        App.updateUi();
+                    }, 2000);
+                }
+            }));
+        });
+    }
     static logout() {
         return __awaiter(this, void 0, void 0, function* () {
             const apiAnswer = yield Http.delete('/api/authentication');
-            if (apiAnswer.script)
+            if (apiAnswer.script !== false)
                 App.updateUi();
         });
     }
     static deleteAccount(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const apiAnswer = yield Http.delete(`/api/user/${id}`);
-            if (apiAnswer.script)
+            if (apiAnswer.script !== false)
                 App.updateUi();
         });
     }
@@ -159,9 +180,10 @@ class App {
                 if (tasks.length < 1) {
                     const taskArea = document.getElementById('tasks-root');
                     if (taskArea)
-                        taskArea.innerHTML = Templates.renderTask('Example title', 'Example tetx', null);
+                        taskArea.innerHTML = Templates.renderTask('Example title', 'Example text', null);
                 }
             });
+            App.deleteTask();
             const logoutButton = document.getElementById('logoutButton');
             const deleteAccountButton = document.getElementById('deleteAccountButton');
             if (logoutButton === null || deleteAccountButton === null)
