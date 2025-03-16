@@ -19,6 +19,15 @@ class TemplateController
 		return true;
 	}
 
+	protected function pregCheckData(array $requiredFields, array $data): bool
+	{
+		foreach ($requiredFields as $field) {
+			if (!preg_match('/^[a-zA-Z0-9\\-_=+@#!&?]+$/is', $data[$field])) return false;
+		}
+
+		return true;
+	}
+
 	protected function checkDataSize(array $data, int $min, int $max): bool
 	{
 		foreach ($data as $item) {

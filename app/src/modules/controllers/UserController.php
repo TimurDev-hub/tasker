@@ -23,6 +23,11 @@ class UserController extends TemplateController
 			return json_encode(['error' => 'Uncorrect data size']);
 		}
 
+		if (!$this->pregCheckData(requiredFields: ['user_name', 'user_password'], data: $userData)) {
+			http_response_code(400);
+			return json_encode(['error' => 'Uncorrect data type']);
+		}
+
 		try {
 			$db = new Database();
 			$pdo = $db->returnPdo();

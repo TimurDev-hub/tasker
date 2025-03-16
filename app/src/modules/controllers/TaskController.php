@@ -23,6 +23,11 @@ class TaskController extends TemplateController
 			return json_encode(['error' => 'Uncorrect data size']);
 		}
 
+		if (!$this->pregCheckData(requiredFields: ['user_id', 'task_title', 'task_text'], data: $taskData)) {
+			http_response_code(400);
+			return json_encode(['error' => 'Uncorrect data type']);
+		}
+
 		try {
 			$db = new Database();
 			$pdo = $db->returnPdo();
