@@ -125,17 +125,17 @@ class App {
 	}
 
 	static deleteTask() {
-		const deleteButton = document.querySelectorAll('sections__submit--delete');
+		const deleteButton = document.querySelectorAll('.sections__submit--delete');
 
 		deleteButton.forEach(button => {
 			button.addEventListener('click', async (event) => {
 				event.preventDefault();
 
-				const form = button.closest('sections__form--task');
-				const taskIdInput = form?.querySelector('input[name="task_id"]');
-				const taskId = (taskIdInput as HTMLInputElement).value;
+				const form = button.closest('.sections__form--task');
+				const taskId = form?.querySelector(".task_id");
+				const id = (taskId as HTMLInputElement).value;
 
-				const apiAnswer = await Http.delete(`/api/task/${taskId}`);
+				const apiAnswer = await Http.delete(`/api/task/${id}`);
 
 				if (apiAnswer.message) Utils.renderFormMessage(apiAnswer.message);
 				if (apiAnswer.error) Utils.renderFormError(apiAnswer.error);
@@ -198,8 +198,8 @@ class App {
 					const taskArea = document.getElementById('tasks-root');
 					if (taskArea) taskArea.innerHTML = Templates.renderTask('Example title', 'Example text', null);
 				}
+				App.deleteTask();
 			});
-			App.deleteTask();
 
 			const logoutButton = document.getElementById('logoutButton');
 			const deleteAccountButton = document.getElementById('deleteAccountButton');
