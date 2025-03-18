@@ -33,6 +33,24 @@ class TaskModel extends TemplateModel
 		}
 	}
 
+	public function checkTasksQuantity(): bool|int
+	{
+		if (!$this->taskData || !isset($this->taskData['user_id'])) return false;
+
+		if (!$this->prepareData(data: $this->taskData)) return false;
+		if (!$this->validateData(data: $this->taskData)) return false;
+
+		try {
+			$stmt = $this->pdo->prepare("SELECT COUNT(task_id) FROM tasks WHERE user_id = ?");
+			$stmt->execute([$this->taskData['user_id']]);
+			return $stmt->fetchColumn();
+
+		} catch(\Throwable $exc) {
+			ErrorLogger::handleError(exc: $exc);
+			return false;
+		}
+	}
+
 	public function getTasks(int $userId): array|false
 	{
 		if (!$userId) return false;
