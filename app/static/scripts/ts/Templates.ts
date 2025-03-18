@@ -39,11 +39,11 @@ export class Templates {
 				<form id="loginForm" class="sections__form">
 					<fieldset class="sections__field sections__field--userforms">
 						<label for="username" class="sections__title">Name</label>
-						<input id="username" name="username" autocomplete="off" type="text" class="sections__text sections__text--userforms main__inputs" placeholder="Your username is..." maxlength="16" required>
+						<input id="username" name="username" autocomplete="off" type="text" class="sections__text sections__text--userforms main__inputs" placeholder="Your username is..." maxlength="12" required>
 					</fieldset>
 					<fieldset class="sections__field">
 						<label for="password" class="sections__title">Password</label>
-						<input id="password" name="password" autocomplete="off" type="password" class="sections__text sections__text--userforms main__inputs" placeholder="Your password is..." maxlength="24" required>
+						<input id="password" name="password" autocomplete="off" type="password" class="sections__text sections__text--userforms main__inputs" placeholder="Your password is..." maxlength="16" required>
 					</fieldset>
 					<button type="submit" class="sections__submit">Submit</button>
 					<span id="formMessageArea"></span>
@@ -63,7 +63,7 @@ export class Templates {
 					</fieldset>
 					<fieldset class="sections__field">
 						<label for="password" class="sections__title">Password</label>
-						<input id="password" name="password" autocomplete="off" type="password" class="sections__text sections__text--userforms main__inputs" placeholder="...and a strong password!" maxlength="24" required>
+						<input id="password" name="password" autocomplete="off" type="password" class="sections__text sections__text--userforms main__inputs" placeholder="...and a strong password!" maxlength="16" required>
 					</fieldset>
 					<button type="submit" class="sections__submit">Submit</button>
 					<span id="formMessageArea"></span>
