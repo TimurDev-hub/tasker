@@ -5,10 +5,10 @@ namespace Templates;
 class TemplateModel
 {
 	private const MIN_TITLE_LEN = 4;
-	private const MAX_TITLE_LEN = 32;
+	private const MAX_TITLE_LEN = 16;
 
 	private const MIN_TASK_LEN = 6;
-	private const MAX_TASK_LEN = 128;
+	private const MAX_TASK_LEN = 64;
 
 	private const MIN_NAME_SIZE = 3;
 	private const MAX_NAME_SIZE = 12;
