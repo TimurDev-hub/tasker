@@ -18,7 +18,7 @@ class TaskController extends TemplateController
 			return json_encode(['error' => 'Missing required fields']);
 		}
 
-		if (!$this->checkDataSize(data: [$taskData['task_title'], $taskData['task_text']], min: 4, max: 128)) {
+		if (!$this->checkDataSize(data: [$taskData['task_title'], $taskData['task_text']], min: 4, max: 64)) {
 			http_response_code(400);
 			return json_encode(['error' => 'Uncorrect data size']);
 		}
@@ -33,6 +33,14 @@ class TaskController extends TemplateController
 			$pdo = $db->returnPdo();
 
 			$taskModel = new TaskModel(pdo: $pdo, taskData: $taskData);
+
+			if (!$taskModel->checkTasksQuantity() >= 5) {
+				http_response_code(400);
+				return json_encode([
+					'error' => 'Too much tasks!',
+					'script' => true
+				]);
+			}
 
 			if (!$taskModel->createTask()) {
 				http_response_code(400);
