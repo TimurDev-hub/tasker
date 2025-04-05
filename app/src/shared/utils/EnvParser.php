@@ -2,7 +2,7 @@
 
 namespace Utils;
 
-class EnvParser
+final class EnvParser
 {
 	private string $filePath;
 

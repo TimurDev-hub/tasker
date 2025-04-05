@@ -4,7 +4,7 @@ namespace Router;
 
 use Utils\ErrorLogger;
 
-class Router
+final class Router
 {
 	private ?string $uri;
 	private ?string $httpMethod;

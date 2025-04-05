@@ -7,7 +7,7 @@ use Database\Database;
 use Models\TaskModel;
 use Utils\ErrorLogger;
 
-class TaskController extends TemplateController
+final class TaskController extends TemplateController
 {
 	public function createTask(mixed $empty = null): string
 	{
@@ -34,7 +34,7 @@ class TaskController extends TemplateController
 
 			$taskModel = new TaskModel(pdo: $pdo, taskData: $taskData);
 
-			if (!$taskModel->checkTasksQuantity() >= 5) {
+			if ($taskModel->checkTasksQuantity() >= 5) {
 				http_response_code(400);
 				return json_encode([
 					'error' => 'Too much tasks!',

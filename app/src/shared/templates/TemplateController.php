@@ -2,7 +2,7 @@
 
 namespace Templates;
 
-class TemplateController
+abstract class TemplateController
 {
 	protected function getJsonContents(): array
 	{

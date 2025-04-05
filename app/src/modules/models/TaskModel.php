@@ -5,7 +5,7 @@ namespace Models;
 use Templates\TemplateModel;
 use Utils\ErrorLogger;
 
-class TaskModel extends TemplateModel
+final class TaskModel extends TemplateModel
 {
 	private \PDO $pdo;
 	private ?array $taskData;

@@ -7,7 +7,7 @@ use Database\Database;
 use Models\UserModel;
 use Utils\ErrorLogger;
 
-class AuthenticationController extends TemplateController
+final class AuthenticationController extends TemplateController
 {
 	public function login(mixed $empty = null): string
 	{

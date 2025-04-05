@@ -4,7 +4,7 @@ namespace Database;
 
 use Utils\{ErrorLogger, EnvParser};
 
-class Database
+final class Database
 {
 	private \PDO $pdo;
 

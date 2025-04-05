@@ -2,7 +2,7 @@
 
 namespace Templates;
 
-class TemplateModel
+abstract class TemplateModel
 {
 	private const MIN_TITLE_LEN = 4;
 	private const MAX_TITLE_LEN = 16;

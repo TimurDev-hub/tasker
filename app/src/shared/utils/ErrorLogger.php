@@ -2,7 +2,7 @@
 
 namespace Utils;
 
-class ErrorLogger
+final class ErrorLogger
 {
 	private const LOCAL_LOG_FILE_PATH = __DIR__ . '/../../core/logs/errors.log';
 

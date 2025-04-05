@@ -5,7 +5,7 @@ namespace Models;
 use Templates\TemplateModel;
 use Utils\ErrorLogger;
 
-class UserModel extends TemplateModel
+final class UserModel extends TemplateModel
 {
 	private \PDO $pdo;
 	private ?array $userData;

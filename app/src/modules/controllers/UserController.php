@@ -7,7 +7,7 @@ use Database\Database;
 use Models\UserModel;
 use Utils\ErrorLogger;
 
-class UserController extends TemplateController
+final class UserController extends TemplateController
 {
 	public function registerUser(mixed $empty = null): string
 	{
